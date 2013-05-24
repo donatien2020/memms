@@ -1,7 +1,6 @@
 $(document).ready(function(){
 
-  // load dashboard stuff here
-  
+  // load dashboard stuff here  
   // filters show/hide
   $('#js-filters-toggle').click(function(e) {
     e.preventDefault();

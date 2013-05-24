@@ -66,4 +66,9 @@ class AccountController extends  AbstractController{
 			response.sendError(404)
 		}
 	}
+	def managementEquipment={
+		
+			render (template:"/entity/reports/dashboard/aggragation/managMedEquipment")
+		
+	}
 }

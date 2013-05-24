@@ -1,7 +1,7 @@
 <div class="entity-list">
   <!-- List Top Header Template goes here -->
   <div class="heading1-bar">
-    <h1>Reports Dashboard</h1>
+    <h1>Reports Dashboard Testing started</h1>
 
   </div>
   <!-- End of template -->
@@ -14,9 +14,9 @@
 
   <!-- List Template goes here -->
   <div id ="list-grid" class="v-tabs">
-	<!-- <div class="spinner-container">
-      <img src="${resource(dir:'images',file:'list-spinner.gif')}" class="ajax-big-spinner"/>
-    </div> -->
+<!-- <div class="spinner-container">
+<img src="${resource(dir:'images',file:'list-spinner.gif')}" class="ajax-big-spinner"/>
+</div> -->
     <ul id='top_tabs' class="v-tabs-nav left">
       <li><a class="active" id="#corrective">Corrective Maintenance</a></li>
       <li><a id="#preventive">Preventive Maintenance</a></li>
@@ -25,7 +25,7 @@
       <li><a id="#monitoring">Monitoring Of MEMMS Use</a></li>
     </ul>
     <div class="v-tabs-content right">
-    	<a id="showhide" class="right" href="#">Show / Hide filters</a>
+     <a id="showhide" class="right" href="#">Show / Hide filters</a>
       <ul class="v-tabs-filters">
         <li><input type="checkbox" /><label>option 1</label></li>
         <li><input type="checkbox" /><label>option 2</label></li>

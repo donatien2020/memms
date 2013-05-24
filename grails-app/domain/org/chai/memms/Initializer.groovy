@@ -1,30 +1,30 @@
 /**
- * Copyright (c) 2012, Clinton Health Access Initiative.
- *
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the <organization> nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+* Copyright (c) 2012, Clinton Health Access Initiative.
+*
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+* * Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* * Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* * Neither the name of the <organization> nor the
+* names of its contributors may be used to endorse or promote products
+* derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+* DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+* (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 package org.chai.memms
 
 import java.util.Date;
@@ -751,7 +751,6 @@ public class Initializer {
 			def spPtTypOne = newSparePartType("4323", ['en':'first spare part','fr':' premiere piece de rechange'],['en':'first spare part description','fr':' description de la premiere piece de rechange'],"4323-XYZ",Provider.findByCode("ONE"),now())
 			def spPtTypTwo = newSparePartType("4324", ['en':'second spare part','fr':' deuxieme piece de rechange'],['en':'second spare part description','fr':' description de la deuxieme piece de rechange'],"4324-ABC",Provider.findByCode("TWO"),now())
 			def spPtTypThree = newSparePartType("4325", ['en':'third spare part','fr':' troisieme piece de rechange'],['en':'third spare part description','fr':' description de la troisieme piece de rechange'],"4325-IJK",Provider.findByCode("THREE"),now())
-   
 			def sparePartTypeOne = newSparePartType("15810", ['en':'first spare part','fr':'premier sp'], ['en':'first spare part','fr':'premier sp'],"CODE Spare Part",Provider.findByCode("ONE"),now())
 			def sparePartTypeTwo = newSparePartType("15819", ['en':'Second spare part','fr':'Second sp'], ['en':'first spare part','fr':'premier sp'],"CODE Spare Part 2",Provider.findByCode("TWO"),now())
 			def sparePartTypeThree = newSparePartType("15966", ['en':'Third spare part','fr':'Troisieme sp'], ['en':'first spare part','fr':'premier sp'],"CODE Spare Part 3",Provider.findByCode("THREE"),now())
@@ -762,25 +761,25 @@ public class Initializer {
 			def sparePartTypeEight = newSparePartType("10124", ['en':'Eighth spare part','fr':'Huitieme sp'], ['en':'first spare part','fr':'premier sp'],"CODE Spare Part 8",Provider.findByCode("EIGHT"),now())
 			def sparePartTypeNine = newSparePartType("10155", ['en':'Ninth spare part','fr':'Neuvieme sp'], ['en':'first spare part','fr':'premier sp'],"CODE Spare Part 9",Provider.findByCode("THREE"),now())
 			def sparePartTypeTen = newSparePartType("10426", ['en':'Tenth spare part','fr':'Dixieme sp'], ['en':'first spare part','fr':'premier sp'],"CODE Spare Part 10",Provider.findByCode("FOUR"),now())
-			
-			
+
+
 			def typeOne = newEquipmentType("158101", ["en":"Accelerometers","fr":"Accelerometers"],["en":"used in memms"],Observation.USEDINMEMMS,now(),25)
 			def typeTwo = newEquipmentType("158191", ["en":"X-Ray Film Cutter"],["en":"used in memms"],Observation.USEDINMEMMS,now(),13)
 			def typeThree = newEquipmentType("159661", ["en":"Video Systems"],["en":"used in memms"],Observation.USEDINMEMMS,now(),12)
 			def typeFour = newEquipmentType("100351", ["en":"Adhesives, Aerosol"],["en":"not used in memms"],Observation.RETIRED,now(),34)
-			
+
 			def contactFive = newContact(['en':'Address Descriptions Five'],"Supplier Company 1","jkl4@yahoo.com","0768-657-787","Street 153","8988")
 			def contactSix = newContact(['en':'Address Descriptions Six'],"Supplier Company 2","jkl5@yahoo.com","0768-342-787","Street 155","8988")
 			def contactSeven = newContact(['en':'Address Descriptions Seven'],"Supplier Company 3","jkl6@yahoo.com","0768-123-787","Street 156","8988")
 			def contactEight = newContact(['en':'Address Descriptions Eight'],"Manufacture and Supplier Ericson","jkl6@yahoo.com","0768-123-787","Street 156","8988")
-			
-			
+
+
 			def supplierOne = newProvider("SUPPLIERONE",Type.SUPPLIER,contactFive)
 			def supplierTwo = newProvider("SUPPLIERTWO",Type.SUPPLIER,contactSix)
 			def supplierThree = newProvider("SUPPLIERTHREE",Type.SUPPLIER,contactSeven)
 			def both = newProvider("SUPPLIERBOTH",Type.BOTH,contactEight)
 
-		
+
 			sparePartTypeEight.addToCompatibleEquipmentTypes(typeThree)
 			sparePartTypeEight.addToCompatibleEquipmentTypes(typeFour)
 			sparePartTypeEight.addToVendors(supplierThree)
@@ -796,7 +795,7 @@ public class Initializer {
 			sparePartTypeTwo.addToCompatibleEquipmentTypes(typeOne)
 			sparePartTypeTwo.addToCompatibleEquipmentTypes(typeTwo)
 			sparePartTypeTwo.save(failOnError:true)
-			
+
 
 			sparePartTypeThree.addToCompatibleEquipmentTypes(typeFour)
 			sparePartTypeThree.addToCompatibleEquipmentTypes(typeTwo)
@@ -805,9 +804,8 @@ public class Initializer {
 			sparePartTypeSeven.addToVendors(supplierThree)
 			sparePartTypeSeven.addToVendors(both)
 			sparePartTypeSeven.save(failOnError:true)
-			
+
 		}
-		
 		if(!SparePart.count()){
 			def sparePartOne = newSparePart(
 				SparePartPurchasedBy.BYMOH,
@@ -822,8 +820,7 @@ public class Initializer {
 				StockLocation.MMC,
 				SparePartStatus.PENDINGORDER,
 				9,0
-				)
-
+			)
 			def sparePartOneT = newSparePart(
 				SparePartPurchasedBy.BYMOH,
 				['en':'Spare Part Descriptions two'],
@@ -837,8 +834,7 @@ public class Initializer {
 				StockLocation.MMC,
 				SparePartStatus.INSTOCK,
 				89,80
-				)
-
+			)
 			def sparePartTwo = newSparePart(
 				SparePartPurchasedBy.BYFACILITY,
 				['en':'Spare Part Descriptions three'],
@@ -852,8 +848,7 @@ public class Initializer {
 				StockLocation.FACILITY,
 				SparePartStatus.PENDINGORDER,
 				8,0
-				)
-			
+			)
 			def sparePartThree = newSparePart(
 				SparePartPurchasedBy.BYFACILITY,
 				['en':'Spare Part Descriptions four'],
@@ -867,8 +862,7 @@ public class Initializer {
 				StockLocation.FACILITY,
 				SparePartStatus.INSTOCK,
 				92,70
-				)
-			
+			)
 			def sparePartFour = newSparePart(
 				SparePartPurchasedBy.BYMOH,
 				['en':'Spare Part Descriptions five'],
@@ -882,8 +876,7 @@ public class Initializer {
 				StockLocation.MMC,
 				SparePartStatus.INSTOCK,
 				100,1
-				)	
-			
+			)	
 			def sparePartFive = newSparePart(
 				SparePartPurchasedBy.BYMOH,
 				['en':'Spare Part Descriptions six'],
@@ -897,7 +890,7 @@ public class Initializer {
 				StockLocation.MMC,
 				SparePartStatus.INSTOCK,
 				999,882
-				)
+			)
 			def sparePartSix = newSparePart(
 				SparePartPurchasedBy.BYMOH,
 				['en':'Spare Part Descriptions seven'],
@@ -911,7 +904,7 @@ public class Initializer {
 				StockLocation.MMC,
 				SparePartStatus.INSTOCK,
 				343,0
-				)
+			)
 			def sparePartSeve = newSparePart(
 				SparePartPurchasedBy.BYMOH,
 				['en':'Spare Part Descriptions eight'],
@@ -925,10 +918,11 @@ public class Initializer {
 				StockLocation.MMC,
 				SparePartStatus.PENDINGORDER,
 				234,0
-				)	
-		}
+			)
+		}	
 	}
-	
+
+
 	//Models definition
 	//Spare Part type
 	public static newSparePartType(def code, def names, def descriptions,def partNumber,def manufacturer, def discontinuedDate){
@@ -954,14 +948,14 @@ public class Initializer {
 			initialQuantity:initialQuantity,
 			inStockQuantity:inStockQuantity
 			);
-		Utils.setLocaleValueInMap(sparePart,descriptions,"Descriptions")
-		return sparePart.save(failOnError: true,flush:true)
-	}
+			Utils.setLocaleValueInMap(sparePart,descriptions,"Descriptions")
+			return sparePart.save(failOnError: true,flush:true)
+		}
 
-	//Preventive Maintenance
+//Preventive Maintenance
 	public static newDurationBasedOrder(def equipment,def addedBy,def status,def preventionResponsible,def technicianInCharge,def names,def description,def firstOccurenceOn,def closedOn,def occurency,def occurInterval,def occurDaysOfWeek){
-		def timeDate =  newTimeDate(firstOccurenceOn)
-		def order  = new DurationBasedOrder(
+		def timeDate = newTimeDate(firstOccurenceOn)
+		def order = new DurationBasedOrder(
 			equipment: equipment,
 			addedBy: addedBy,
 			type: PreventiveOrderType.DURATIONBASED,
@@ -974,15 +968,15 @@ public class Initializer {
 			occurency: occurency,
 			occurInterval: occurInterval,
 			occurDaysOfWeek: occurDaysOfWeek
-			)
-		Utils.setLocaleValueInMap(order,names,"Names") 
+		)
+		Utils.setLocaleValueInMap(order,names,"Names")
 		equipment.addToPreventiveOrders(order)
 		equipment.save(failOnError:true)
 		return order.save(failOnError: true)
 	}
 	public static newWorkBasedOrder(def equipment,def addedBy,def status,def preventionResponsible,def technicianInCharge,def names,def description,def firstOccurenceOn,def closedOn,def occurency,def occurInterval){
-		def timeDate =  newTimeDate(firstOccurenceOn)
-		def order  = new WorkBasedOrder(
+		def timeDate = newTimeDate(firstOccurenceOn)
+		def order = new WorkBasedOrder(
 			equipment: equipment,
 			addedBy: addedBy,
 			type: PreventiveOrderType.WORKBASED,
@@ -994,16 +988,16 @@ public class Initializer {
 			occurency:occurency,
 			firstOccurenceOn: timeDate,
 			closedOn: closedOn
-			)
-		Utils.setLocaleValueInMap(order,names,"Names") 
-		
+		)
+		Utils.setLocaleValueInMap(order,names,"Names")
+
 		equipment.addToPreventiveOrders(order)
 		equipment.save(failOnError:true)
 		return order.save(failOnError: true)
 	}
 	//Prevention
 	public static newPrevention(def order,def addedBy,def scheduledOn,def eventDate,def timeSpend,def descriptions, def processes){
-		def timeD =  newTimeDate(scheduledOn)
+		def timeD = newTimeDate(scheduledOn)
 		def timeS = newTimeSpend(timeSpend)
 		def prevention = new Prevention(addedBy:addedBy,scheduledOn:timeD,eventDate:eventDate,timeSpend:timeS,processes:processes)
 		Utils.setLocaleValueInMap(prevention,descriptions,"Descriptions")
@@ -1038,13 +1032,13 @@ public class Initializer {
 		return new WorkOrder(equipment:equipment, description:description, criticality:criticality,addedBy:addedBy, openOn: openOn, closedOn:closedOn, currentStatus:currentStatus,failureReason:failureReason).save(failOnError:true)
 	}
 	public static newWorkOrderNotification(def workOrder, def sender, def receiver, def content){
-		return new NotificationWorkOrder(workOrder: workOrder, sender: sender, receiver: receiver, content: content).save(failOnError: true)
+	return new NotificationWorkOrder(workOrder: workOrder, sender: sender, receiver: receiver, content: content).save(failOnError: true)
 	}
-	
+
 	public static newNewEquipmentNotification(def dataLocation, def department, def sender, def receiver,def content){
 		return new NotificationEquipment(dataLocation:dataLocation, department:department, sender: sender, receiver: receiver,content: content).save(failOnError: true)
 	}
-	
+
 	public static newComment(def workOrder, def writtenBy, def content){
 		return new Comment(workOrder: workOrder, writtenBy: writtenBy, content: content ).save(failOnError: true)
 	}
@@ -1054,32 +1048,32 @@ public class Initializer {
 	public static newNotificationEquipment(def sender, def receiver, def writtenOn, def content, def read, def dataLocation, def department){
 		return new NotificationEquipment(sender:sender, receiver:receiver, writtenOn:writtenOn, content:content, read:read, dataLocation:dataLocation, department:department).save(failOnError: true)
 	}
-	
+
 	public static newWorkOrderStatus(def workOrder,def status,def changedBy,def escalation){
 		def equipment = workOrder.equipment
 		def stat = new WorkOrderStatus(workOrder:workOrder,status:status,changedBy:changedBy,escalation:escalation)
-		
+
 		//Create First Work Order
 		if(status == OrderStatus.OPENATFOSA){
-			if(!equipment.currentStatus.equals(Status.UNDERMAINTENANCE)){			
-				newEquipmentStatus(now(), changedBy, Status.UNDERMAINTENANCE, equipment, [:])
-			}
+		if(!equipment.currentStatus.equals(Status.UNDERMAINTENANCE)){	
+		newEquipmentStatus(now(), changedBy, Status.UNDERMAINTENANCE, equipment, [:])
+		}
 		}
 		//Change Equipment Status When closing workorder
 		if(status == OrderStatus.CLOSEDFIXED){
-			 workOrder.closedOn = now()
-			 newEquipmentStatus(now(), changedBy, Status.OPERATIONAL, equipment, [:])
+		workOrder.closedOn = now()
+		newEquipmentStatus(now(), changedBy, Status.OPERATIONAL, equipment, [:])
 		}
 		if(status == OrderStatus.CLOSEDFORDISPOSAL){
-			workOrder.closedOn = now()
-			newEquipmentStatus(now(), changedBy, Status.FORDISPOSAL, equipment, [:])
-		}		
+		workOrder.closedOn = now()
+		newEquipmentStatus(now(), changedBy, Status.FORDISPOSAL, equipment, [:])
+		}	
 		workOrder.currentStatus= status
 		workOrder.addToStatus(stat)
 		workOrder.save(failOnError:true,flush:true)
 		return stat;
 	}
-	
+
 	//Inventory
 	public static newEquipment(def serialNumber,def purchaser,def donor,def donorName,def obsolete,def expectedLifeTime,def room,def purchaseCost,def descriptions,def manufactureDate, def purchaseDate,def currency,def model,def dataLocation,def department, def type,def manufacture,def supplier,def currentStatus,def addedBy,def lastModifiedBy,def lastModifiedOn){
 		def equipment = new Equipment(
@@ -1103,7 +1097,7 @@ public class Initializer {
 			currentStatus:currentStatus,
 			addedBy:addedBy,
 			lastModifiedBy:lastModifiedBy
-			);
+		);
 		Utils.setLocaleValueInMap(equipment,descriptions,"Descriptions")
 		return equipment.save(failOnError: true,flush:true)
 	}
@@ -1111,7 +1105,7 @@ public class Initializer {
 	public static newEquipmentStatus(def dateOfEvent,def changedBy,def value, def equipment,def reasons){
 		def status = new EquipmentStatus(dateOfEvent:dateOfEvent,changedBy:changedBy,status:value)
 		Utils.setLocaleValueInMap(status,reasons,"Reasons")
-		equipment.addToStatus(status) 
+		equipment.addToStatus(status)
 		equipment.save(failOnError:true,flush:true)
 		equipment.currentStatus = value
 		equipment.lastModifiedBy = changedBy
@@ -1124,27 +1118,27 @@ public class Initializer {
 		Utils.setLocaleValueInMap(contact,addressDescriptions,"AddressDescriptions")
 		return contact;
 	}
-	
+
 	public static newProvider(def code, def type, def contact){
 		return new Provider(code:code,type:type,contact:contact).save(failOnError: true)
 	}
-	
+
 	public static newProvider(def code, def type, def addressDescriptions, def contactName,def email, def phone, def street, def poBox){
 		def contact = newContact(addressDescriptions,contactName,email,phone,street,poBox)
 		return newProvider(code,type,contact)
 	}
-	
+
 	public static newWarranty(def contact, def startDate,def sameAsSupplier,def descriptions){
 		def warranty = new Warranty(contact:contact,startDate:startDate,sameAsSupplier:sameAsSupplier)
 		Utils.setLocaleValueInMap(warranty,descriptions,"Descriptions")
 		return warranty
 	}
-	
+
 	public static newWarranty(def addressDescriptions,def contactName,def email,def phone,def street,def poBox,def startDate,def sameAsSupplier,def descriptions){
 		def contact = newContact(addressDescriptions,contactName,email,phone,street,poBox)
 		return newWarranty(contact, startDate,sameAsSupplier,descriptions)
 	}
-	//@Deprecated have to remove the lastModifiedOn params	
+	//@Deprecated have to remove the lastModifiedOn params
 	public static newEquipmentType(def code, def names,def descriptions, def observation, def lastModifiedOn,def expectedLifeTime = 12){
 		def type = new EquipmentType(code:code,observation:observation,expectedLifeTime:newPeriod(expectedLifeTime))
 		Utils.setLocaleValueInMap(type,names,"Names")
@@ -1154,32 +1148,32 @@ public class Initializer {
 
 	public static newDepartment(def names,def code, def descriptions){
 		def department = new Department(code:code)
-		Utils.setLocaleValueInMap(department,names,"Names") 
+		Utils.setLocaleValueInMap(department,names,"Names")
 		Utils.setLocaleValueInMap(department,descriptions,"Descriptions")
 		return department.save(failOnError: true)
 	}
-	
+
 	public static newPeriod(def numberOfMonths){
 		return new Period(numberOfMonths:numberOfMonths)
 	}
-	
+
 	public static newPeriod(def years,def months){
 		return new Period(years,months)
 	}
-	
+
 	//Location
 	public static newDataLocationType(def names, def code) {
 		def dataLocationType = new DataLocationType(code: code, defaultSelected: true)
 		Utils.setLocaleValueInMap(dataLocationType,names,"Names")
 		return dataLocationType.save(failOnError: true)
 	}
-	
+
 	public static newLocationLevel(def names, def code, def order) {
 		def locationLevel = new LocationLevel(code: code, order:order)
 		Utils.setLocaleValueInMap(locationLevel,names,"Names")
 		return locationLevel.save(failOnError: true)
 	}
-	
+
 	public static newLocation(def names, def code, def parent, def level) {
 		def location = new Location(code: code, parent: parent, level: level)
 		Utils.setLocaleValueInMap(location,names,"Names")
@@ -1192,7 +1186,7 @@ public class Initializer {
 		}
 		return location
 	}
-	
+
 	public static newDataLocation(def names, def code, def location, def type) {
 		def dataLocation = new DataLocation(code: code, location: location, type: type)
 		Utils.setLocaleValueInMap(dataLocation,names,"Names")
@@ -1204,25 +1198,25 @@ public class Initializer {
 		if (type != null) {
 			type.addToDataLocations(dataLocation)
 			type.save(failOnError: true)
-	   }
+		}
 		return dataLocation
 	}
-	
+
 	static mapping ={
 		table "memms_initializer_data"
 		version false
 	}
-   public static now(){
-	   return new Date()
-   }
-   public static Date getDate( int day, int month, int year) {
-	   final Calendar calendar = Calendar.getInstance();
+	public static now(){
+		return new Date()
+	}
+	public static Date getDate( int day, int month, int year) {
+		final Calendar calendar = Calendar.getInstance();
 
-	   calendar.clear();
-	   calendar.set( Calendar.YEAR, year );
-	   calendar.set( Calendar.MONTH, month - 1 );
-	   calendar.set( Calendar.DAY_OF_MONTH, day );
+		calendar.clear();
+		calendar.set( Calendar.YEAR, year );
+		calendar.set( Calendar.MONTH, month - 1 );
+		calendar.set( Calendar.DAY_OF_MONTH, day );
 
-	   return calendar.getTime();
-   }
+		return calendar.getTime();
+	}
 }

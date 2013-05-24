@@ -567,7 +567,6 @@ ul.filtered li span { color: grey; }
 /* line 250, ../../src/stylesheets/partials/_forms.sass */
 ul.filtered li:hover { background-color: yellow; }
 
-/* line 254, ../../src/stylesheets/partials/_forms.sass */
 .element-list .element-map-header, .element-list .element-map-body { display: block; }
 /* line 257, ../../src/stylesheets/partials/_forms.sass */
 .element-list .element-map-header .element-map-header, .element-list .element-map-body .element-map-header { font-size: 11px; }
@@ -1672,3 +1671,8 @@ div#comparison, div#geo_trend, div#info_facility, div#preventive, div#equipment,
 .nodata { background: #f6fdeb; border: 1px solid #888888; color: #222222; font-size: 12px; height: 40px; left: 50%; line-height: 40px; margin: -20px 0 0 -150px; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95); opacity: 0.95; padding: 5px 12px; position: absolute; text-align: center; top: 50%; z-index: 20; width: 300px; text-decoration: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px; -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px; box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px; }
 /* line 156, ../../src/stylesheets/partials/_nav-table.sass */
 .nodata:hover, .nodata:focus { border: 1px solid #258cd5; opacity: 1; }
+.don_titles{ color: #258cd5; font-weight: bold;display: inline; font-size: 20px; line-height: 1.4; margin-left: 7px; padding-top: 5px; vertical-align: top; width: 100px; }
+.nice-form input:hover, .nice-form input:focus, .nice-form select:hover, .nice-form select:focus { background: #ecf7ff; border-color: #258cd5; }
+form.my_form input { background: #f9f9f9; border: 1px solid #b6c1c9; color: #444444; font: normal 12px Arial, sans-serif; margin: 0; padding: 3px 5px 4px; -webkit-box-shadow: #d8e3eb 1px 1px 3px 0 inset; -moz-box-shadow: #d8e3eb 1px 1px 3px 0 inset; box-shadow: #d8e3eb 1px 1px 3px 0 inset; }
+/* line 326, /Users/susanmlister/workspace/clintonhealthaccess/memms/src/stylesheets/partials/_forms.sass */
+form.my_form input:hover, form.search-form input:focus { background: #ecf7ff; border-color: #258cd5; }

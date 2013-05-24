@@ -77,6 +77,8 @@ grails.project.dependency.resolution = {
 		compile 'net.sf.ezmorph:ezmorph:1.0.6'
 		runtime 'mysql:mysql-connector-java:5.1.5'
 		compile 'org.supercsv:SuperCSV:1.52'
+		// Donatien added the google gson dependency
+		compile 'com.google.code.gson:gson:2.2.2'
     }
 
     plugins {
@@ -101,6 +103,8 @@ grails.project.dependency.resolution = {
 		test (":spock:0.6") {changing = false}
 		//		test ":geb:0.7.1"
 		compile ":csv:0.3.1"
+		// Added the gson plugin by donnatien
+		compile ":gson:1.1.4"
     }
 	
 }

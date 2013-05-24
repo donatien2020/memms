@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<indicators>
+
+    <!-- MANAGEMENT_MEDICAL_EQUIPEMENT -->
+
+    <indicator
+        categoryCode="MANAGEMENT_MEDICAL_EQUIPEMENT"
+        indicatorCode="MANA_EQUIPMENT_SHARE_OF_OPERATIONAL_EQUIPMENT" >
+
+        <name>
+            SHARE OF OPERATIONAL EQUIPMENT
+            <!-- Slide 7: -->
+        </name>
+
+        <formula>
+(total number equipment with STATUS=Operational) 
+/ (total number equipment with STATUS=(Operational; Partially operational, Under maintenance))
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where equ.currentStatus='OPERATIONAL' and equ.dataLocation=locationidentifier               
+            </excutableScript>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_EQUIPEMENTS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where (equ.currentStatus='OPERATIONAL' or equ.currentStatus='UNDERMAINTENANCE' or equ.currentStatus='PARTIALLYOPERATIONAL') and equ.dataLocation=locationidentifier
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEDICAL_EQUIPEMENT"
+        indicatorCode="MANA_EQUIPMENT_QUANTITY_OF_EQUIPMENT__FOR_DISPOSAL" >
+
+        <name>
+           QUANTITY OF EQUIPMENT FOR DISPOSAL
+            <!-- Slid 8 -->
+        </name>
+
+        <formula>
+total number of equipment with status For disposal
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where equ.currentStatus='FORDISPOSAL' and equ.dataLocation=locationidentifier
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEDICAL_EQUIPEMENT"
+        indicatorCode="MANA_EQUIPMENT_QUANTITY_OF_EQUIPMENT__IN_STOCK" >
+
+        <name>
+
+            <!-- slid 9: total number of equipment with status In stock -->
+           QUANTITY OF EQUIPMENT INSTOCK
+        </name>
+
+        <formula>
+total number of equipment with status IN STOCK
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where equ.currentStatus='INSTOCK' and equ.dataLocation=locationidentifier
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEDICAL_EQUIPEMENT"
+        indicatorCode="MANA_EQUIPMENT_DEGREE_OF_EQUIPMENT__STANDARDIZATION" >
+
+        <name>
+
+            <!-- slid 10: (max (no. of equipments of type 1 from one manufacturer)+max(no. of equipments of type 2 from one manufacturer)+....) / (Total no. of equipments at the facility) -->
+            DEGREE OF EQUIPMENT STANDARDIZATION
+        </name>
+
+        <formula>
+(max (no. of equipments of type 1 from one manufacturer)+max(no. of equipments of type 2 from one manufacturer)+....) / (Total no. of equipments at the facility)
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Special
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEDICAL_EQUIPEMENT"
+        indicatorCode="MANA_EQUIPMENT_SHARE_OF_EQUIPMENT__DONATED" >
+
+        <name>
+
+            <!-- slid 11: : (total number equipment with STATUS=(Operational; Partially operational, Under maintenance) and PURCHASER = (Donor))/(total number equipment with STATUS=(Operational; Partially operational, Under maintenance)) -->
+           SHARE OF EQUIPMENT DONATED
+        </name>
+
+        <formula>
+(total number equipment with STATUS=(Operational; Partially operational, Under maintenance) and PURCHASER = (Donor))/(total number equipment with STATUS=(Operational; Partially operational, Under maintenance)) 
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where (equ.currentStatus='OPERATIONAL'  or equ.currentStatus='UNDERMAINTENANCE'  or equ.currentStatus='PARTIALLYOPERATIONAL') and equ.purchaser='BYDONOR' and equ.dataLocation=locationidentifier
+            </excutableScript>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_EQUIPEMENTS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+         select equ.code from Equipment as equ where (equ.currentStatus='OPERATIONAL' or equ.currentStatus='UNDERMAINTENANCE' or equ.currentStatus='PARTIALLYOPERATIONAL') and equ.dataLocation=locationidentifier
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEDICAL_EQUIPEMENT"
+        indicatorCode="MANA_EQUIPMENT_SHARE_OF_EQUIPMENT_THAT_IS_OBSOLETE" >
+
+        <name>
+
+            <!-- sild 12: slid 12:  (total number equipment with STATUS=(Operational; Partially operational, Under maintenance) and OBSELETE BOX CHECKED)/(total number equipment with  STATUS = (Operational; Partially operational, Under maintenance)) -->
+           SHARE OF EQUIPMENT THAT IS OBSOLETE
+        </name>
+
+        <formula>
+(total number equipment with STATUS=(Operational; Partially operational, Under maintenance) and OBSELETE BOX CHECKED)/(total number equipment with  STATUS = (Operational; Partially operational, Under maintenance))
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where (equ.currentStatus='OPERATIONAL'  or equ.currentStatus='UNDERMAINTENANCE'  or equ.currentStatus='PARTIALLYOPERATIONAL') and equ.obsolete='1' and equ.dataLocation=locationidentifier
+            </excutableScript>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_EQUIPEMENTS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where (equ.currentStatus='OPERATIONAL' or equ.currentStatus='UNDERMAINTENANCE' or equ.currentStatus='PARTIALLYOPERATIONAL') and equ.dataLocation=locationidentifier
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEDICAL_EQUIPEMENT"
+        indicatorCode="MANA_EQUIPMENT_SHARE_OF_EQUIPMENT_UNDER_ACTIVE_WARRANTY_OR_UNDER_ACTIVE_SERVICE_PROVIDER_CONTRACT" >
+
+        <name>
+
+            <!-- sild 13  (total number equipment with STATUS=(Operational; Partially operational, Under maintenance) and (Current Date – Warranty Start Date) < (Warranty period)) or (Current Date – Contract Start Date) < (Contract period))/(total number equipment with STATUS=(Operational; Partially operational, Under maintenance)) -->
+           SHARE OF EQUIPMENT UNDER ACTIVE WARRANTY OR UNDER ACTIVE SERVICE PROVIDER CONTRACT
+        </name>
+
+        <formula>
+(total number equipment with STATUS=(Operational; Partially operational, Under maintenance) and (Current Date – Warranty Start Date) less than (Warranty period)) or (Current Date – Contract Start Date) less than (Contract period))(/total number equipment with STATUS=(Operational; Partially operational, Under maintenance))
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where (equ.currentStatus='OPERATIONAL' or equ.currentStatus='UNDERMAINTENANCE' or equ.currentStatus='PARTIALLYOPERATIONAL' or equ.currentStatus='INSTOCK') and ((DATEDIFF(:currentDate,equ.warranty.startDate)lessthan(equ.warrantyPeriod.numberOfMonths)*30) or (DATEDIFF(:currentDate,equ.serviceContractStartDate)lessthan(equ.serviceContractPeriod.numberOfMonths)*30) and equ.dataLocation=locationidentifier)
+            </excutableScript>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_EQUIPEMENTS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where (equ.currentStatus='OPERATIONAL' or equ.currentStatus='UNDERMAINTENANCE' or equ.currentStatus='PARTIALLYOPERATIONAL' or equ.currentStatus='INSTOCK') and equ.dataLocation=locationidentifier
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEDICAL_EQUIPEMENT"
+        indicatorCode="MANA_EQUIPMENT_SHARE_OF_EQUIPMENT_WITH_LIFETIME_EXPIRING_IN_LESS_THAN_2YEARS" >
+
+        <name>
+
+            <!-- slide 14 -->
+           SHARE OF EQUIPMENT WITH LIFE TIME EXPIRING IN LESS THAN 2 YEARS
+        </name>
+
+        <formula>
+ (total number equipment with STATUS=(Operational; Partially operational, Under maintenance) and (Current Date – date of first inventory updation/DATE OF PURCHASE) >(Expected life time – 2years)/(total number equipment with STATUS = (Operational; Partially operational, Under maintenance))
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where (equ.currentStatus='OPERATIONAL' or equ.currentStatus='UNDERMAINTENANCE' or equ.currentStatus='PARTIALLYOPERATIONAL' or equ.currentStatus='INSTOCK') and (((equ.expectedLifeTime.numberOfMonths-24)*30)lessthan(DATEDIFF(:currentDate,equ.purchaseDate))) and equ.dataLocation=locationidentifier
+            </excutableScript>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_EQUIPEMENTS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+select equ.code from Equipment as equ where (equ.currentStatus='OPERATIONAL' or equ.currentStatus='UNDERMAINTENANCE' or equ.currentStatus='PARTIALLYOPERATIONAL' or equ.currentStatus='INSTOCK') and equ.dataLocation=locationidentifier
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+    <!-- End -->
+    <!-- Preventive maintenance : -->
+
+    <indicator
+        categoryCode="PRIVENTIVE_MAINTENANCE"
+        indicatorCode="PRIV_MAINT_AVERAGE_IN_EWAITING_FOR_SPAREPARTS" >
+
+        <name> <!-- Slid 32 -->
+         AVERAGE IN WAITING FOR SPAREPARTS
+        </name>
+
+        <formula>
+            Average time waiting for spare  
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Special
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="PRIVENTIVE_MAINTENANCE"
+        indicatorCode="PRIV_MAINT_COST_EFFECTIVENESS_OF_PREVENTIVE_MAINTENANCE" >
+
+        <name>
+
+            <!-- slid 33 -->
+           COST EFFECTIVENESS OF PREVENTIVE MAINTENANCE
+        </name>
+
+        <formula>
+Average equipments (cumulative cost of  preventive maintenance maintenance for an equipment/cost of the equipment)
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEDICAL_EQUIPEMENT"
+        indicatorCode="PRIV_MAINT_DEGREE_EXECUTION" >
+
+        <name> <!-- Slide 34 -->
+
+          DEGREE EXECUTION
+        </name>
+
+        <formula>
+            Number of preventive maintenance deadlines adhered to/total  number of preventive maintenance deadlines
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="PRIVENTIVE_MAINTENANCE"
+        indicatorCode="PRIV_MAINT_SHARE_OF_MAINTENANCE_EXECUTED_AT_THE_FACILITY" >
+
+        <name>
+
+            <!-- Slide 35 -->
+           SHARE OF MAINTENANCE EXECUTED AT THE FACILITY
+        </name>
+
+        <formula>
+            Number of PM deadlines adhered to at the facility/Total number of PM deadlines
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="PRIVENTIVE_MAINTENANCE"
+        indicatorCode="PRIV_MAINT_DEVIATION_AGAINST_SCHEDULED_DATE" >
+
+        <name> <!-- slid 36 -->
+          DEVIATION AGAINST SCHEDULED DATE
+        </name>
+
+        <formula>
+            Average deviation from scheduled date 
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+    
+    <!-- end of equipement management -->
+    
+    <!-- Corrective maintenance : -->
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_TOTAL_NO_OF_WORK_ORDERS_PER_QUARTER" >
+
+        <name> <!-- slide 15 time period not ye set for now-->
+        Total number of work orders in a given time period
+        </name>
+
+        <formula>
+            Total number of work orders generated in a given time period – the time period will be decided by the user.
+        </formula>
+
+      
+        <scriptFormula>
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_WORK_ORDERS"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+                TOTAL_NUMBER_WORK_ORDERS
+            </excutableScript>
+        </scriptFormula>
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_DEGREE_OF_CORRECTIVE_MAINTENANCE_EXECUTION_ACCORDING_TO_BENCHMARK" >
+
+        <name> <!-- Slid 16 -->
+          DEGREE OF CORRECTIVE MAINTENANC EEXECUTION ACCORDING TO BENCHMARK
+        </name>
+
+        <formula>
+          Total no. of work orders with status changed from open at facility or open at MM to Closed fixed/ total no. of work orders generated in a given time frame (time frame to be decided by the user) 
+        </formula>
+         <scriptFormula>
+
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+                select wo.id from WorkOrder wo join wo.equipment as equ where wo.currentStatus='CLOSEDFIXED' and equ.dataLocation=locationidentifier
+            </excutableScript>
+             <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_WORK_ORDERS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+                TOTAL_NUMBER_WORK_ORDERS
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <!--<indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_DEGREE_OF_POSITIVE_FEEDBACK_FROM_EQUIPMENT_USER_POST_CORRECTIVE_MAINTENANCE" >
+
+        <name>
+          DEGREE OF POSITIVE FEED BACK FROM EQUIPMENT USER POST CORRECTIVE_MAINTENANCE
+        </name>
+
+        <formula>
+            Total no. of work orders witnessing re-incidence in a given time frame/total no. Of work orders in that time frame
+        </formula>
+
+         <scriptFormula>
+
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+              select wo.id from WorkOrder wo join wo.equipment as equ where wo.failureReason='RE-INCIDENCE' or wo.failureReason='MISUSE' and equ.dataLocation=locationidentifier
+            </excutableScript>
+             <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_WORK_ORDERS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+                TOTAL_NUMBER_WORK_ORDERS
+            </excutableScript>
+        </scriptFormula>
+
+
+        <type>
+         Normal
+        </type>
+    </indicator>-->
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_SHARE_OF_WORK_ORDERS_WITNESSING_REINCIDENCE_IN_A_PERIOD_OF_TIME_USERDEFINED" >
+
+        <name><!-- slid 17 -->
+          SHARE OF WORK ORDERS WITNESSING REINCIDENCE IN A PERIOD OF TIME (USER DEFINED)
+        </name>
+
+        <formula>
+            Total no. of work orders witnessing re-incidence in a given time frame/total no. Of work orders in that time frame
+        </formula>
+
+         <scriptFormula>
+
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+              select wo.id from WorkOrder wo join wo.equipment as equ where wo.failureReason='RE-INCIDENCE' or wo.failureReason='MISUSE' and equ.dataLocation=locationidentifier
+            </excutableScript>
+             <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_WORK_ORDERS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+                TOTAL_NUMBER_WORK_ORDERS
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_COST_EFFECTIVENESS_OF_CORRECTIVE_MAINTENANCE" >
+
+        <name><!-- slid 18 -->
+          COST EFFECTIVENESS OF CORRECTIVE_MAINTENANCE
+        </name>
+
+        <formula>
+             Average equipments (cumulative cost of corrective maintenance (cost of all work orders in equipment’s history) for an equipment / cost of the equipment)
+        </formula>
+
+       <scriptFormula>
+
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="false" >
+              select sum(wo.estimatedCost) from WorkOrder wo join wo.equipment as equ where equ.dataLocation=locationidentifier
+            </excutableScript>
+             <excutableScript
+                classDomaine="Equipment"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="false" >
+                select sum(equ.purchaseCost) from Equipment equ where equ.dataLocation=locationidentifier
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_SHARE_OF_WORK_ORDERS_ESCALETED_T_OMMC" >
+
+        <name><!-- slid 19-->
+          SHARE OF WORK ORDERS ESCALETED TO MMC
+        </name>
+
+        <formula>
+            Total work orders with status change from open at facility to :open at MMC / total work orders
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+                select wo.id from WorkOrder wo join wo.equipment as equ where wo.currentStatus='OPENATMMC' and equ.dataLocation=locationidentifier
+            </excutableScript>
+             <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_WORK_ORDERS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+                TOTAL_NUMBER_WORK_ORDERS
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_SHARE_OF_WORK_ORDERS_OUTSOURCED_TO_3RDPARTIES" >
+
+        <name>
+         SHARE OF WORK ORDERS OUTSOURCED TO 3RD PARTIES (EXCLUDING WARRANTY/SERVICE PROVIDER CONTRACTS)
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_SHARE_OF_WORK_ORDERS_UNDER_WARRANTY_SERVICE_PROVIDER_CONTRACTS" >
+
+        <name>
+         SHARE  OF WORK ORDERS UNDER WARRANTY/SERVICE PROVIDER CONTRACTS
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_SHARE_OF_WORK_ORDERS_EXECUTED_UNDERWARRANTY_SERVICE_PROVIDER_CONTRACTS" >
+
+        <name>
+          SHARE  OF WORK ORDERS EXECUTED UNDER WARRANTY/SERVICE PROVIDER CONTRACTS
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_AVERAGE_TIME_TO_FIX_EQUIPMENT" >
+
+        <name><!--slid 20-->
+         AVERAGE TIME TO FIX EQUIPMENT
+        </name>
+
+        <formula>
+             Average all work orders  (Time  taken for work order status to change from “open at facility” to “closed fixed”)
+        </formula>
+<scriptFormula>
+
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="false" >
+                select avg(wo.travelTime.numberOfMinutes) from WorkOrder wo join wo.equipment as equ where wo.currentStatus='CLOSEDFIXED' and equ.dataLocation=locationidentifier
+            </excutableScript>
+            
+        </scriptFormula>
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_AVERAGE_TIME_TO_FIX_EQUIPMENT_BYDHTECHNICIAN" >
+
+        <name><!--slid 21-->
+         AVERAGE TIME TO FIX EQUIPMENT BY DH TECHNICIAN
+        </name>
+
+        <formula>
+            Average time taken for those work orders to close which were never escalated to the MMC, i.e. Status change from open at facility to closed fixed without there being an intermediate open at MMC
+        </formula>
+
+       <scriptFormula>
+
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="false" >
+                select avg(wo.travelTime.numberOfMinutes) from WorkOrder wo join wo.equipment as equ where wo.id not in(select wos.workOrder.id from WorkOrderStatus wos where wos.status='OPENATMMC') and wo.currentStatus='CLOSEDFIXED' and equ.dataLocation=locationidentifier"
+		
+            </excutableScript>
+            
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_AVERAGE_TIME_TO_FIX_EQUIPMENT_BYMMC" >
+
+        <name><!--slid 22-->
+          AVERAGE TIME TO FIX EQUIPMENT BY MMC
+        </name>
+
+        <formula>
+             Average time for work orders to change status from “open at MMC” to “closed fixed”
+        </formula>
+
+       <scriptFormula>
+
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="false" >
+                select avg(wo.travelTime.numberOfMinutes) from WorkOrder wo join wo.equipment as equ where wo.id in(select wos.workOrder.id from WorkOrderStatus wos where wos.status='OPENATMMC') and wo.currentStatus='CLOSEDFIXED' and equ.dataLocation=locationidentifier"
+		
+            </excutableScript>
+            
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_AVERAGE_TIME_TO_FIX_EQUIPMENT_BY3RDPARTIES" >
+
+        <name>
+          AVERAGE TIME TO FIX EQUIPMENT BY 3RD PARTIES (EXCLUDING WARRANTY/SERVICE PROVIDER CONTRACTS)
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_AVERAGE_TIME_TO_FIX_EQUIPMENT_BYWARRANTY_SERVICE_PROVIDER" >
+
+        <name>
+          AVERAGE TIME TO FIX EQUIPMENT BY WARRANTY/SERVICE PROVIDER
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_SHARE_OF_WORK_ORDERS_REQUIRING_NEW_SPAREPARTS" >
+
+        <name><!--slid 23 not yet done from chaii-->
+          SHARE OF WORK ORDERS REQUIRING NEW SPARE PARTS
+        </name>
+
+        <formula>
+            Number of work orders using spare parts before getting closed / total number of work orders
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="false" >
+               waitting okkkkkkkkkkkkkkkkkkkkkkkkkkkk
+		
+            </excutableScript>
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_WORK_ORDERS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+                TOTAL_NUMBER_WORK_ORDERS
+            </excutableScript>
+            
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_AVERAGE_TIME_WAITING_FOR_SPAREPARTS" >
+
+        <name>
+          AVERAGE TIME WAITING FOR SPARE PARTS
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="CORRECTIVE_MAINTENANCE"
+        indicatorCode="CORRE_MAINT_SHARE_OF_PROBLEMS_CAUSED_BY_MISUSE" >
+
+        <name>
+          SHARE OF PROBLEMS CAUSED BY MISUSE
+        </name>
+
+        <formula>
+           number of work orders with misuse as reason of equipment failure / total number of work orders generated
+        </formula>
+
+        <scriptFormula>
+
+            <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="NA"
+                isDenominator="false"
+                isDynamicFinder="false"
+                isIntermidiateVariable="false"
+                useCountFunction="true" >
+              select wo.id from WorkOrder wo join wo.equipment as equ where wo.failureReason='MISUSE' and equ.dataLocation=locationidentifier
+            </excutableScript>
+             <excutableScript
+                classDomaine="WorkOrder"
+                followOperand="add"
+                internediateVariableCode="TOTAL_NUMBER_WORK_ORDERS"
+                isDenominator="true"
+                isDynamicFinder="false"
+                isIntermidiateVariable="true"
+                useCountFunction="true" >
+                TOTAL_NUMBER_WORK_ORDERS
+            </excutableScript>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+    <!-- End of corrective maintenance-->
+    <!-- Management of spare parts: -->
+
+    <indicator
+        categoryCode="MANAGEMENT_OF_SPARE_PARTS"
+        indicatorCode="MANA_SPARE_NUMBER_OF_TYPES_OF_SPAREPARTS_ABOUT_TO_BE_DISCONTINUED_IN_AYEAR" >
+
+        <name>
+          NUMBER OF TYPES OF SPARE PARTS ABOUT TO BE DISCONTINUED IN A YEAR
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_OF_SPARE_PARTS"
+        indicatorCode="MANA_SPARE_NUMBER_OF_TYPES_OF_SPAREPARTS_ABOUT_TO_STOCKOUT_IN_AGIVEN_TIME_PERIOD" >
+
+        <name>
+          NUMBER OF TYPES OF  SPARE PARTS ABOUT TO STOCK OUT IN A GIVEN TIME PERIOD
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_OF_SPARE_PARTS"
+        indicatorCode="MANA_SPARE_NUMBER_OF_TYPES_OF_SPAREPARTS_WITH_STOCK_MORE_THAN_A_GIVEN_TIME_PERIOD" >
+
+        <name>
+         NUMBER OF TYPES OF  SPARE PARTS WITH STOCK MORE THAN A GIVEN TIME PERIOD
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_OF_SPARE_PARTS"
+        indicatorCode="MANA_SPARE_AVERAGE__STOCK_TIME" >
+
+        <name>
+         AVERAGE_ STOCK TIME
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_OF_SPARE_PARTS"
+        indicatorCode="MANA_SPARE_AVERAGE__TIME_BETWEEN_REQUEST_AND_ARRIVAL_OF_SPAREPARTS" >
+
+        <name>
+          AVERAGE_ TIME BETWEEN REQUEST AND ARRIVAL OF SPARE PARTS
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+    <!-- End -->
+    <!-- Monitoring of MEMMS use -->
+
+    <indicator
+        categoryCode="MANAGEMENT_MEMMS_USERS"
+        indicatorCode="MON_MEMMS_AVERAGE_NUMBER_OF_EQUIPMENT_PER_FACILITY" >
+
+        <name>
+          AVERAGE_ NUMBER OF EQUIPMENT_ PER FACILITY
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEMMS_USERS"
+        indicatorCode="MON_MEMMS_SHARE_OF_FACILITIES_WITH_NUMBER_OF_INVENTORYSTATUSCHANGE_SLESS_THAN_10INAYEAR" >
+
+        <name>
+         SHARE OF FACILITIES WITH NUMBER OF INVENTORY STATUS CHANGES LESS THAN 10 IN A YEAR
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEMMS_USERS"
+        indicatorCode="MON_MEMMS_SHARE_OF_FACILITIES_WITH_NUMBER_OF_WORKORDERS_LESSTHAN_10INAYEAR" >
+
+        <name>
+        SHARE OF FACILITIES WITH NUMBER OF WORK ORDERS LESS THAN 10 IN A YEAR
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEMMS_USERS"
+        indicatorCode="MON_MEMMS_AVERAGE_PERCENTAGE_OF_EQUIPMENTS_PER_FACILITY_HAVING_A_PREVENTIVE_MAINTENANCE_PLAN" >
+
+        <name>
+         AVERAGE PERCENTAGE OF EQUIPMENT_S PER FACILITY HAVING A PREVENTIVE MAINTENANCE PLAN
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEMMS_USERS"
+        indicatorCode="MON_MEMMS_SHARE_OF_FACILITIES_WITH_NO_PREVENTIVE_MAINTENANCE_PLAN_FOR_MORE_THAN10_OF_THE_EQUIPMENT" >
+
+        <name>
+          SHARE OF FACILITIES WITH NO PREVENTIVE MAINTENANCE PLAN FOR MORE THAN 10% OF THE EQUIPMENT
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+    <indicator
+        categoryCode="MANAGEMENT_MEMMS_USERS"
+        indicatorCode="MON_MEMMS_SHARE_OF_WAREHOUSES_WITH_NUMBER_OF_SPAREPART_INVENTORYSTATUS_CHANGE_SLESSTHAN_20INAMONTH" >
+
+        <name>
+          SHARE OF WAREHOUSES WITH NUMBER OF SPARE PART INVENTORY STATUS CHANGES LESS THAN 20 IN A MONTH
+        </name>
+
+        <formula>
+        </formula>
+
+        <scriptFormula>
+        </scriptFormula>
+
+        <type>
+         Normal
+        </type>
+    </indicator>
+
+</indicators>

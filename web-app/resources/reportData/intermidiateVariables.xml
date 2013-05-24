@@ -1,0 +1,49 @@
+<intermediateVariables>
+
+    <intermediateVariable intermediateVariableCode="TOTAL_NUMBER_EQUIPEMENTS" >
+
+        <name><!-- Being used ok -->
+          TOTAL NUMBER OF EQUIPEMENTS AT A FACILITY
+        </name>
+
+        <executableScript>
+          select equ.code from Equipment as equ where (equ.currentStatus='OPERATIONAL' or equ.currentStatus='UNDERMAINTENANCE' or equ.currentStatus='PARTIALLYOPERATIONAL' or equ.currentStatus='INSTOCK') and equ.dataLocation=locationidentifier
+        </executableScript>
+
+        <computedValue>
+            
+        </computedValue>
+    </intermediateVariable>
+
+    <intermediateVariable intermediateVariableCode="TOTAL_NUMBER_SPARE_PARTS" >
+
+        <name><!-- Not yet used -->
+            TOTAL NUMBER OF SPARE PARTS  AT A FACILITY
+        </name>
+
+        <executableScript>
+          select sp.code from SparePart as sp
+        </executableScript>
+
+        <computedValue>
+          
+        </computedValue>
+    </intermediateVariable>
+
+    <intermediateVariable intermediateVariableCode="TOTAL_NUMBER_WORK_ORDERS" >
+
+        <name><!-- time period missing ok -->
+            TOTAL NUMBER WORK ORDERS AT A FACILITY
+        </name>
+
+        <executableScript>
+             select wo.id from WorkOrder wo join wo.equipment as equ where equ.dataLocation=locationidentifier
+        </executableScript>
+
+        <computedValue>
+            
+        </computedValue>
+    </intermediateVariable>
+
+   
+</intermediateVariables>

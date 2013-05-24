@@ -64,7 +64,7 @@ public class Equipment {
 		String messageCode = "equipment.purchased"
 		
 		final String name
-		PurchasedBy(String name){ this.name=name }
+		PurchasedBy(String name){this.name=name }
 		String getKey() { return name() }
 		
 	}

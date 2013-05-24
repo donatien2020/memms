@@ -44,10 +44,15 @@ class DashboardController extends AbstractController{
 	}
 
 	def dashboard ={
-		render(view: '/reports/reports',
-			model: [
-				template:"/reports/dashboard/dashboard"
-			])
-	}
+		render(view: '/entity/reports',model: [
+				template:"/entity/reports/dashboard/aggragation/dashboardMenu"
+				])
+	}	
 
+	def listing ={
+		render(view: '/entity/list',model: [
+				template:"/entity/reports/listing"
+				])
+	}	
+	
 }

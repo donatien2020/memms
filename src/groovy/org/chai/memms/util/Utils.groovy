@@ -13,7 +13,7 @@
  *     * Neither the name of the <organization> nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -59,7 +59,7 @@ import org.joda.time.Weeks;
 
 /**
  * @author Jean Kahigiso M.
- * 
+ *
  */
 public class Utils {
 	
@@ -70,7 +70,7 @@ public class Utils {
 	
 	public final static String CODE_DELIMITER = "~";
 	public final static String CODE_PATTERN = CODE_DELIMITER + "[^" + CODE_DELIMITER + "]+" + CODE_DELIMITER;
-	public final static String VALUE_NOT_EXPORTABLE = "VALUE_NOT_EXPORTABLE";	
+	public final static String VALUE_NOT_EXPORTABLE = "VALUE_NOT_EXPORTABLE";
 	private final static Integer MAX_YEAR = now().year+1900;
 	private final static Integer MIN_YEAR = 1970;
 
@@ -184,7 +184,7 @@ public class Utils {
 	}
 	
 	public static Class<?> isExportablePrimitive(Class<?> clazz){
-		Class<?> exportableClazz = null;		
+		Class<?> exportableClazz = null;
 		if(clazz.isPrimitive() || ClassUtils.wrapperToPrimitive(clazz) != null){
 			exportableClazz = clazz;
 		}

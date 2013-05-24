@@ -578,6 +578,9 @@ th:hover, tr:hover {
 .buttons .save {
 	background-image: url(../images/skin/database_save.png);
 }
+.new_entity-link  {
+	background-image: url(../images/skin/database_save.png);
+}
 
 a.skip {
 	position: absolute;

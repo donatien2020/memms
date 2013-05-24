@@ -45,6 +45,7 @@ class EquipmentStatusController extends AbstractEntityController{
     def getEntity(def id) {
 		return EquipmentStatus.get(id);
 	}
+	
 	def createEntity() {
 		return new EquipmentStatus();
 	}
@@ -62,6 +63,7 @@ class EquipmentStatusController extends AbstractEntityController{
 	def getEntityClass() {
 		return EquipmentStatus.class;
 	}
+	
 	def deleteEntity(def entity) {
 		def equipment = entity.equipment
 		if(equipment.status && equipment.status.size()==1)

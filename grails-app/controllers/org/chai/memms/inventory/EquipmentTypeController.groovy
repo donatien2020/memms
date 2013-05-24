@@ -88,6 +88,7 @@ class EquipmentTypeController extends AbstractEntityController{
 	}
 			
 	def list = {
+		println"natyemooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
 		adaptParamsForList()
 		def types = EquipmentType.list(offset:params.offset,max:params.max,sort:params.sort ?:"id",order: params.order ?:"desc");
 		if(request.xhr)
@@ -135,27 +136,27 @@ class EquipmentTypeController extends AbstractEntityController{
 	}
 
 	
-	def getAjaxData = {
-		def types = equipmentTypeService.searchEquipmentType(params['term'],Observation."$params.observation",[:])
-		render(contentType:"text/json") {
-			elements = array {
-				types.each { type ->				
-					elem (
-							key: type.id,
-							value: type.getNames(languageService.getCurrentLanguage()) + ' ['+type.code+']'
-							)
-				}
-			}
-			htmls = array {
-				types.each { type ->
-					elem (
-							key: type.id,
-							html: g.render(template:"/templates/typeFormSide",model:[type:type,label:label,cssClass:"form-aside-hidden",field:'type'])
-							)
-				}
-			}
-		}
-	}	
+//	def getAjaxData = {
+//		def types = equipmentTypeService.searchEquipmentType(params['term'],Observation."$params.observation",[:])
+//		render(contentType:"text/json") {
+//			elements = array {
+//				types.each { type ->				
+//					elem (
+//							key: type.id,
+//							value: type.getNames(languageService.getCurrentLanguage()) + ' ['+type.code+']'
+//							)
+//				}
+//			}
+//			htmls = array {
+//				types.each { type ->
+//					elem (
+//							key: type.id,
+//							html: g.render(template:"/templates/typeFormSide",model:[type:type,label:label,cssClass:"form-aside-hidden",field:'type'])
+//							)
+//				}
+//			}
+//		}
+//	}	
 	
 		
 	def export = {

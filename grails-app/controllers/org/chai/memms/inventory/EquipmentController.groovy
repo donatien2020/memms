@@ -195,10 +195,7 @@ class EquipmentController extends AbstractEntityController{
 				}
 			}
 		}
-	}
-	
-	
-	
+	}	
 }
 
 class StatusCommand {

@@ -45,6 +45,7 @@ class DataLocationTypeController extends AbstractEntityController {
 
 	def getEntityClass(){
 		return DataLocationType.class;
+	
 	}
 	
 	def getEntity(def id) {

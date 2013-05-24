@@ -1,0 +1,78 @@
+<categories>
+
+    <category categoryCode="CORRECTIVE_MAINTENANCE" >
+
+        <name>
+            CORRECTIVE MAINTENANCE
+        </name>
+
+        <minYellowValue>
+            20
+        </minYellowValue>
+
+        <maxYellowValue>
+             35
+        </maxYellowValue>
+    </category>
+
+    <category categoryCode="PRIVENTIVE_MAINTENANCE" >
+
+        <name>
+            PRIVENTIVE MAINTENANCE
+        </name>
+
+        <minYellowValue>
+            25
+        </minYellowValue>
+
+        <maxYellowValue>
+            50
+        </maxYellowValue>
+    </category>
+
+    <category categoryCode="MANAGEMENT_MEDICAL_EQUIPEMENT" >
+
+        <name>
+            MANAGEMENT MEDICAL EQUIPEMENT
+        </name>
+
+        <minYellowValue>
+            25
+        </minYellowValue>
+
+        <maxYellowValue>
+            60
+        </maxYellowValue>
+    </category>
+
+    <category categoryCode="MANAGEMENT_OF_SPARE_PARTS" >
+
+        <name>
+            MANAGEMENT OF SPARE PARTS
+        </name>
+
+        <minYellowValue>
+            30
+        </minYellowValue>
+
+        <maxYellowValue>
+            50
+        </maxYellowValue>
+    </category>
+
+    <category categoryCode="MANAGEMENT_MEMMS_USERS" >
+
+        <name>
+            MANAGEMENT MEMMS USERS
+        </name>
+
+        <minYellowValue>
+            25
+        </minYellowValue>
+
+        <maxYellowValue>
+            55
+        </maxYellowValue>
+    </category>
+
+</categories>

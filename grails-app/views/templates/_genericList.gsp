@@ -2,6 +2,7 @@
 	<div>
 		<!-- List Top Header Template goes here -->
 		<div class="heading1-bar">
+		
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:render template="/entity/${listTop}" />
 		</div>

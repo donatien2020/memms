@@ -21,6 +21,7 @@
   		</shiro:hasPermission>
   		<shiro:hasPermission permission="menu:reports">
   		<li><a href="#"><g:message code="header.navigation.reports"/></a></li>
+  		
   		</shiro:hasPermission>
   	</ul>
   </div>
