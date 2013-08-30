@@ -31,7 +31,7 @@ package org.chai.memms.reports.dashboard
  * @author Antoine Nzeyi, Donatien Masengesho, Pivot Access Ltd
  *
  */
-class MemmsReport {
+class MemmsReport{
 
     Date generatedAt
 

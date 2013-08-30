@@ -16,20 +16,20 @@ def indicatorComputationService
    def  "get Current Memms Report"() {
                 setup:
                  setupLocationTree()
-                  setupSystemUser()
+                 setupSystemUser()
                  setupEquipment()
-                createDashboardTestData()
+                 createDashboardTestData()
                  indicatorComputationService.computeCurrentReport()
 		when:
-		MemmsReport result = dashboardService.getCurrentMemmsReport()
-                DateTime now = DateTime.now()
+		 MemmsReport result = dashboardService.getCurrentMemmsReport()
+                 DateTime now = DateTime.now()
                
-                def today= now.getDayOfWeek()
-                DateTime compareToThisDate = new DateTime(result.generatedAt)
+                 def today= now.getDayOfWeek()
+                 DateTime compareToThisDate = new DateTime(result.generatedAt)
                 def compareToDay=compareToThisDate.getDayOfWeek()
 		then:
-                println" computation repport :"+result
-                 assert today==compareToDay
+                assert today==compareToDay
+                 println" computation repport :"+result
                 
         
     }

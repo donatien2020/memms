@@ -18,22 +18,12 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "update"
+           dbCreate = "update"
             driverClassName = "com.mysql.jdbc.Driver"
-            username = "memmsuser"
-            password = "memms123"
+            username = "root"
+            password = "MYSQLnpf2020."
             url = "jdbc:mysql://localhost/memmsdb_test"
             pooled = true
-            properties {
-                maxActive = -1
-                minEvictableIdleTimeMillis=1800000
-                timeBetweenEvictionRunsMillis=1800000
-                numTestsPerEvictionRun=3
-                testOnBorrow=true
-                testWhileIdle=true
-                testOnReturn=true
-                validationQuery="SELECT 1"
-            }
         }
     }
     test {
