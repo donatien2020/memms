@@ -41,6 +41,7 @@ import java.util.*
 import org.chai.memms.security.User
 import org.apache.shiro.SecurityUtils
 import java.util.Collections;
+import org.joda.time.DateTime
 /**
  * @author Antoine Nzeyi, Donatien Masengesho, Pivot Access Ltd
  *
@@ -66,6 +67,8 @@ class IndicatorItem {
     List<GeographicalValueItem> geographicalValueItems
     Map<String, Double> valuesPerGroup
     Integer totalHistoryItems
+    
+    public IndicatorItem(){}
 
     public IndicatorItem(IndicatorValue iv) {
         this.categoryCode = iv.indicator.category.code
@@ -126,14 +129,49 @@ class IndicatorItem {
      */
     public def getHistoricValueItems(IndicatorValue iv) {
         if(iv != null) {
+            DateTime now = DateTime.now()
+             def monthCounter=now.getMonthOfYear()
+            def historicalPeriodsConditions=""+now.getMonthOfYear()
+             def historicalPeriods=0
+             if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.YEARLY)){
+                     
+                     historicalPeriods=12
+             } else if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.QUARTERLY)){
+                 
+                historicalPeriods=3
+                
+             }
+          
+           
+            def periodCpounter=historicalPeriods
+            
+            for(int i=0  ;i<12; i++){
+               
+                periodCpounter--
+                monthCounter--
+                
+                if(periodCpounter==0){
+                historicalPeriodsConditions=historicalPeriodsConditions+","+monthCounter
+                 periodCpounter=historicalPeriods
+                  println"found here  mont is:"+monthCounter+" period :"+periodCpounter
+                 }
+            
+              if(monthCounter==1)
+                monthCounter=12
+                
+                
+                
+            }
+            
+            println"historical contions :"+historicalPeriodsConditions
+            
             def locationReports=null
             if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.MONTHLY)){
                 locationReports = LocationReport.findAll("from LocationReport as locationReport  where locationReport.location.id='"+iv.locationReport.location.id+"' order by locationReport.generatedAt desc limit "+iv.indicator.historyItems+"")
-            } else if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.QUARTERLY)){
-                locationReports = LocationReport.findAll("from LocationReport as locationReport where month(locationReport.generatedAt) in (3,6,9,12) and locationReport.location.id='"+iv.locationReport.location.id+"' order by locationReport.generatedAt desc limit "+iv.indicator.historyItems+"")
-            } else if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.YEARLY)) {
-                locationReports = LocationReport.findAll("from LocationReport as locationReport where month(locationReport.generatedAt) = 12 and locationReport.location.id='"+iv.locationReport.location.id+"' order by locationReport.generatedAt desc limit "+iv.indicator.historyItems+"")
-            }
+            } else{
+              
+                locationReports = LocationReport.findAll("from LocationReport as locationReport where month(locationReport.generatedAt) in ("+historicalPeriodsConditions+") and locationReport.location.id='"+iv.locationReport.location.id+"' order by locationReport.generatedAt desc limit "+iv.indicator.historyItems+"")
+            } 
             return IndicatorValue.findAllByLocationReportInListAndIndicator(locationReports,iv.indicator)
         }
         return null
