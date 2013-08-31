@@ -108,12 +108,12 @@ class IndicatorItem {
         this.lowestComparisonValueItems= new ArrayList<ComparisonValueItem>()
         this.valuesPerGroup=new HashMap<String,Double>()
         //####adding historical values
-        this.historicalValueItems.add(new HistoricalValueItem(iv))
+        //this.historicalValueItems.add(new HistoricalValueItem(iv))
         for(IndicatorValue indV :  getHistoricValueItems(iv)) {
             this.historicalValueItems.add(new HistoricalValueItem(indV))
         }
         //#### adding geographical values
-        this.geographicalValueItems.add(new GeographicalValueItem(iv))
+        //this.geographicalValueItems.add(new GeographicalValueItem(iv))
         for(IndicatorValue indV : getGeographicalValueItems(iv)) {
             this.geographicalValueItems.add(new GeographicalValueItem(indV))
         }
