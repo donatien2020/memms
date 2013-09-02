@@ -32,10 +32,17 @@ package memms.reports.dashboard
  *
  */
 class IndicatorComputationJob {
+  def javax.sql.DataSource dataSource
     def indicatorReportService
-    def cronExpression = "0 0 0 1 1 * ? *" // s m H d M DOW yyyy
+    static triggers = {
+        cron name:'cronTrigger', startDelay:10000, cronExpression: '0 59 23 * * ? *' // '0 0 18 * * ? *' // s m H d M DOW yyyy
+    }
 
     def execute() {
-        indicatorReportService.computeCurrentReport()
+        println"heloo :"+new Date()
+       // indicatorReportService.computeCurrentReport()
     }
 }
+
+    
+

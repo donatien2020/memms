@@ -35,7 +35,7 @@ class IndicatorComputationJob {
   def javax.sql.DataSource dataSource
     def indicatorReportService
     static triggers = {
-        cron name:'cronTrigger', startDelay:10000, cronExpression: '0 38 15 * * ? *' // '0 0 18 * * ? *' // s m H d M DOW yyyy
+        cron name:'cronTrigger', startDelay:1000, cronExpression: '0 59 23 * * ? *' // '0 0 18 * * ? *' // s m H d M DOW yyyy
     }
 
     def execute() {
