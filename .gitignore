@@ -33,3 +33,4 @@ prodDb.h2.db
 .screen.css
 *.sublime-project
 *.sublime-workspace
+*~

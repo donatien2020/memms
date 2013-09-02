@@ -242,8 +242,7 @@ class IndicatorItem {
                  this.lowestComparisonValueItems.add(new ComparisonValueItem(iv))
             }
             
-            println" lowest values :"+ this.lowestComparisonValueItems
-             println" reversed lowest values :"+ this.lowestComparisonValueItems.reverse()
+           
             if(this.lowestComparisonValueItems!=null)
             this.lowestComparisonValueItems.reverse()
             
