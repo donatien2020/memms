@@ -47,7 +47,7 @@ def userDefinedVariableService
 		List<UserDefinedVariable> result=userDefinedVariableService.listAllUserDefinedVariables()
 		then:
                 assert result.size()==1
-                 println" Test passed wit listing result :"+result
+                 
         
     }
 }

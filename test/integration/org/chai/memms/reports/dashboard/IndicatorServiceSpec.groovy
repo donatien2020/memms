@@ -24,6 +24,6 @@ def indicatorService
 		List<Indicator> result=indicatorService.searchIndicator("Degree of equipment standardization", params)
 		then:
                 assert result.size()==1
-                println" This test passed wit search result :"+result
+               
     }
 }

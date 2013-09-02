@@ -24,7 +24,7 @@ def indicatorCategoryService
                    
 		then:
                 assert result.size()==1
-                 println" This test passed wit listing result :"+result
+                 
         
         
     }
