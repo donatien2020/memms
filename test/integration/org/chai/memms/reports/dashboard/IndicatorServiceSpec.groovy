@@ -6,7 +6,10 @@ import java.util.HashMap
 import org.chai.memms.reports.dashboard.DashboardInitializer
 import org.chai.memms.reports.dashboard.Indicator
 import org.chai.memms.reports.dashboard.IndicatorCategory
-
+/**
+ * @author Antoine Nzeyi, Donatien Masengesho, Pivot Access Ltd
+ *
+ */
 class IndicatorServiceSpec  extends IntegrationTests{
 def indicatorService
    

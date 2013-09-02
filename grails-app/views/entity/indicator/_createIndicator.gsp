@@ -15,10 +15,10 @@
   <div class="main">
     <g:form url="[controller:'indicator', action:'save', params:[targetURI: targetURI]]" useToken="true" class="simple-list">
       <g:selectFromList name="category.id" label="${message(code:'indicator.category.label')}" bean="${indicator}" field="category" optionKey="id" multiple="false"
-                        from="${IndicatorCategory.list()}" value="${indicator?.category?.id}" optionValue="name" />
+                        from="${IndicatorCategory.list()}" value="${indicator?.category?.id}" optionValue="names" />
       <g:input name="code" label="${message(code:'indicator.code.label')}" bean="${indicator}" field="code" width="100"/>
-      <g:i18nInput name="name" label="${message(code:'indicator.name.label')}" bean="${indicator}" field="name" width="100"/>
-      <g:i18nTextarea  name="description" label="${message(code:'indicator.description.label')}" bean="${indicator}" field="description" height="200" width="500" maxHeight="300" />
+      <g:i18nInput name="names" label="${message(code:'indicator.name.label')}" bean="${indicator}" field="names" width="100"/>
+      <g:i18nTextarea  name="descriptions" label="${message(code:'indicator.description.label')}" bean="${indicator}" field="descriptions" height="200" width="500" maxHeight="300" />
       <g:i18nTextarea name="formula" label="${message(code:'indicator.formula.label')}" bean="${indicator}" field="formula" height="200" width="500" maxHeight="300" />
       <g:input name="unit" label="${message(code:'indicator.unit.label')}" bean="${indicator}" field="unit" width="20"/>
       <g:input name="redToYellowThreshold" label="${message(code:'indicator.redToYellowThreshold.label')}" bean="${indicator}" field="redToYellowThreshold"/>

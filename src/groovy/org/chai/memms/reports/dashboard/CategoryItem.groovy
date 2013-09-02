@@ -45,7 +45,7 @@ class CategoryItem {
     public CategoryItem(IndicatorCategory cat, List<IndicatorItem> items) {
         this.indicatorItems = new ArrayList<IndicatorItem>()
         this.code = cat.code
-        this.name = cat.name
+        this.name = cat.names
         Double totalValue = 0.0
         Integer counter = 0
         for(IndicatorItem i : items) {

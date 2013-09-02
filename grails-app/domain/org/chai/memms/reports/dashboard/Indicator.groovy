@@ -54,8 +54,8 @@ class Indicator {
     }
 
     String code
-    String name
-    String description
+    String names
+    String descriptions
     String formula
     String unit
 
@@ -72,8 +72,8 @@ class Indicator {
     String groupQueryScript
 
     static i18nFields = [
-		"name",
-		"description",
+		"names",
+		"descriptions",
 		"formula","groupName"
     ]
     static belongsTo = [category:IndicatorCategory]
@@ -88,8 +88,8 @@ class Indicator {
 
     static constraints = {
         code (blank:false, nullable:false, unique:true)
-        name (blank:false, nullable:false, size:3..250)
-        description (blank:true, nullable:true, size:0..1000)
+        names (blank:false, nullable:false, size:3..250)
+        descriptions (blank:true, nullable:true, size:0..1000)
         formula (blank:false, nullable:false, size:0..1000)
         unit (blank:false, nullable:false)
         redToYellowThreshold (blank:false, nullable:false)

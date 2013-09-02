@@ -7,6 +7,10 @@ import grails.test.mixin.support.*
 import org.junit.*
 import org.chai.memms.IntegrationTests
 import org.chai.memms.reports.dashboard.DashboardInitializer
+/**
+ * @author Antoine Nzeyi, Donatien Masengesho, Pivot Access Ltd
+ *
+ */
 class IndicatorCategoryServiceSpec extends IntegrationTests {
 def indicatorCategoryService 
 

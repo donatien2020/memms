@@ -25,24 +25,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package memms.reports.dashboard
+package org.chai.memms.reports.dashboard
+import static org.junit.Assert.*
+import org.junit.*
+import org.chai.memms.IntegrationTests
 
+import org.chai.location.CalculationLocation
+import org.chai.location.DataLocation
+import org.chai.location.Location
 /**
  * @author Antoine Nzeyi, Donatien Masengesho, Pivot Access Ltd
  *
  */
-class IndicatorComputationJob {
-  def javax.sql.DataSource dataSource
-    def indicatorReportService
-    static triggers = {
-        cron name:'cronTrigger', startDelay:10000, cronExpression: '0 38 15 * * ? *' // '0 0 18 * * ? *' // s m H d M DOW yyyy
-    }
+class ComparisonValueItemSpec extends IntegrationTests{
+    
+def indicatorComputationService
+def comparisonValueItem
 
-    def execute() {
-        println"heloo :"+new Date()
-       // indicatorReportService.computeCurrentReport()
+def "geographical Value Item Contructor test "(){
+                setup:
+                setupLocationTree()
+                setupSystemUser()
+                setupEquipment()
+                createDashboardTestData()
+                indicatorComputationService.computeCurrentReport()
+		when:
+                def indicatorValues=IndicatorValue.findAll()
+               
+                comparisonValueItem = new ComparisonValueItem(indicatorValues.get(0))
+                then:
+                assert comparisonValueItem.color=="green"
+                   
     }
 }
-
-    
-

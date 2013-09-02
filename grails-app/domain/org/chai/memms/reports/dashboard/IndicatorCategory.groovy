@@ -37,13 +37,13 @@ import groovy.transform.EqualsAndHashCode
 class IndicatorCategory {
 
     String code
-    String name
+    String names
 
     Double redToYellowThreshold
     Double yellowToGreenThreshold
 
 
-    static i18nFields = ["name"]
+    static i18nFields = ["names"]
     static hasMany = [indicators:Indicator]
     static mapping ={
         table "memms_report_indicator_category"
@@ -53,7 +53,7 @@ class IndicatorCategory {
 
     static constraints = {
         code (blank:false, nullable:false, unique:true)
-        name (blank:true, nullable:true, size:3..100)
+        names (blank:true, nullable:true, size:3..100)
     }
 
     @Override

@@ -41,11 +41,11 @@ class IndicatorService {
         return criteria.list(offset:params.offset,max:params.max,sort:params.sort ?:"id",order: params.order ?:"desc"){
             or {
                 ilike("code", "%" + text + "%")
-                ilike("name_en", "%" + text + "%")
-                ilike("description_en", "%" + text + "%")
+                ilike("names_en", "%" + text + "%")
+                ilike("descriptions_en", "%" + text + "%")
                 ilike("formula_en", "%" + text + "%")
-                ilike("name_fr", "%" + text + "%")
-                ilike("description_fr", "%" + text + "%")
+                ilike("names_fr", "%" + text + "%")
+                ilike("descriptions_fr", "%" + text + "%")
                 ilike("formula_fr", "%" + text + "%")
             }
         }

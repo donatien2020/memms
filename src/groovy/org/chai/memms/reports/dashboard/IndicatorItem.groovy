@@ -74,7 +74,7 @@ class IndicatorItem {
         this.categoryCode = iv.indicator.category.code
         this.dateTime = iv.computedAt
         this.code = iv.indicator.code
-        this.name = iv.indicator.name
+        this.name = iv.indicator.names
         this.formula = iv.indicator.formula
         this.value = iv.computedValue
         this.unit = iv.indicator.unit
@@ -141,8 +141,7 @@ class IndicatorItem {
                 historicalPeriods=3
                 
              }
-          
-           
+         
             def periodCpounter=historicalPeriods
             
             for(int i=0  ;i<12; i++){
@@ -153,17 +152,14 @@ class IndicatorItem {
                 if(periodCpounter==0){
                 historicalPeriodsConditions=historicalPeriodsConditions+","+monthCounter
                  periodCpounter=historicalPeriods
-                  println"found here  mont is:"+monthCounter+" period :"+periodCpounter
                  }
             
               if(monthCounter==1)
                 monthCounter=12
-                
-                
-                
+          
             }
             
-            println"historical contions :"+historicalPeriodsConditions
+           
             
             def locationReports=null
             if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.MONTHLY)){
@@ -191,7 +187,9 @@ class IndicatorItem {
         Collections.sort(invVs);
         if(invVs.size() > 0) {
             List<IndicatorValue> listOfHighest=new ArrayList<IndicatorValue>()
-            List<IndicatorValue> listOfLowest=new ArrayList<IndicatorValue>()
+            List<IndicatorValue> listOfLowestTmp=new ArrayList<IndicatorValue>()
+             List<IndicatorValue> listOfLowest=new ArrayList<IndicatorValue>()
+              List<IndicatorValue> higherTmp=new ArrayList<IndicatorValue>()
             Double red = currentValue.indicator.redToYellowThreshold
             Double green =  currentValue.indicator.yellowToGreenThreshold
             if(red < green) {
@@ -203,7 +201,7 @@ class IndicatorItem {
                     } else if(iv.id == currentValue.id) {
                         for(def i = 1 ; i <= 2 ; i++) {
                             if(invVs.indexOf(iv)+i<invVs.size())
-                            this.higherComparisonValueItems.add(new ComparisonValueItem(invVs.get(invVs.indexOf(iv)+i)))
+                              higherTmp.add(invVs.get(invVs.indexOf(iv)+i))
                             if(invVs.indexOf(iv)-i>=0)
                             this.lowerComparisonValueItems.add(new ComparisonValueItem(invVs.get(invVs.indexOf(iv)-i)))
                         }
@@ -225,19 +223,37 @@ class IndicatorItem {
                     }
                 }
             }
+            
+              for(IndicatorValue iv: higherTmp.reverse()){
+                 this.higherComparisonValueItems.add(new ComparisonValueItem(iv))
+            }
+            
+            
             def lowestCounter=0
             def highestcounter=0
-            for(IndicatorValue iv: listOfLowest.reverse()){
+            for(IndicatorValue iv: listOfLowest){
                 if(lowestCounter < 3)
-                this.lowestComparisonValueItems.add(new ComparisonValueItem(iv))
+                listOfLowestTmp.add(iv)
+               
                 lowestCounter++
             }
+            
+            for(IndicatorValue iv: listOfLowestTmp.reverse()){
+                 this.lowestComparisonValueItems.add(new ComparisonValueItem(iv))
+            }
+            
+            println" lowest values :"+ this.lowestComparisonValueItems
+             println" reversed lowest values :"+ this.lowestComparisonValueItems.reverse()
+            if(this.lowestComparisonValueItems!=null)
+            this.lowestComparisonValueItems.reverse()
+            
             for(IndicatorValue iv:listOfHighest.reverse()){
                 if(highestcounter < 3)
                 this.highestComparisonValueItems.add(new ComparisonValueItem(iv))
                 highestcounter++
             }
         }
+       // if(this.higherComparisonValueItems!=null)
         this.higherComparisonValueItems.reverse()
     }
     /**

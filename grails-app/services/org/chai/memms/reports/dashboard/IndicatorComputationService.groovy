@@ -63,14 +63,17 @@ class IndicatorComputationService {
         MemmsReport memmsReport = new MemmsReport(generatedAt: currentDate).save()
         // 4. Compute report for all locations with registered users.
         Set<Long> locations = new HashSet<Long>();
+        int locationReports=0;
         for(User user: User.findAll()) {
             if ((user.location != null) && !locations.contains(user.location.id)){
                 locations.add(user.location.id);
                 computeLocationReport(currentDate, user.location, memmsReport)
-               break
-                
+    
             }
+            locationReports++
         }
+        
+        println" computed reprts :"+locationReports
     }
 
      def computeLocationReport(Date currentDate, CalculationLocation location, MemmsReport memmsReport) {

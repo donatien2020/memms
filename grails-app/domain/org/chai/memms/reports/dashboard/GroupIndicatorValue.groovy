@@ -7,7 +7,7 @@ package org.chai.memms.reports.dashboard
 
 /**
  *
- * @author donatien
+ * @author donatien,Antoine
  */
 class GroupIndicatorValue {
     Date generatedAt

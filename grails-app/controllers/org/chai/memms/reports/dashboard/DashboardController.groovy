@@ -68,7 +68,7 @@ class DashboardController extends AbstractController {
             ])
     }
        
-    def getUserReport() {
+    def getUserReport(){
         MemmsReport memmsReport = dashboardService.getCurrentMemmsReport()
         if(memmsReport == null) {
             return null
