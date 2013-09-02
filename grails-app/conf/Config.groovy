@@ -212,10 +212,10 @@ task.temp.folder='files/'
 /**
 * Configuration file override
 */
-/**def locations = ["file:${userHome}/.grails/${appName}-config.groovy"]
+def locations = ["file:${userHome}/.grails/${appName}-config.groovy"]
 if (System.properties['config']) locations.add("file:"+System.properties['config'])
 environments {
    production {
 	   grails.config.locations = locations
    }
-}*/
+}
