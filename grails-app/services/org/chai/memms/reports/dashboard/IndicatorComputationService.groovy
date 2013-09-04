@@ -68,34 +68,24 @@ class IndicatorComputationService {
             if ((user.location != null) && !locations.contains(user.location.id)){
                 locations.add(user.location.id);
                 computeLocationReport(currentDate, user.location, memmsReport)
-    
             }
             locationReports++
         }
-        
-        println" computed reprts :"+locationReports
     }
 
      def computeLocationReport(Date currentDate, CalculationLocation location, MemmsReport memmsReport) {
         LocationReport locationReport = new LocationReport(generatedAt: currentDate, memmsReport: memmsReport, location:location).save()
         for(Indicator indicator: Indicator.findAllByActive(true)) {
             System.out.println(" >>> Calculating report " + indicator.code + " for " + location.names);
-            try{
-                
+            try {
                 def compvalue = computeIndicatorForLocation(indicator, location)
-                
                 IndicatorValue indicatorValue=new IndicatorValue(computedAt: currentDate, locationReport: locationReport, indicator: indicator, computedValue:compvalue).save()
-                
                 if(indicatorValue!=null) {
-                   
                     Map<String,Double> map= groupComputeIndicatorForLocation(indicatorValue.indicator,location)
-                    if(map!=null) {
-                      
+                    if(map != null) {
                         for (Map.Entry<String, Double> entry : (Set)map.entrySet()){
                             def groupIndicatorValue=new GroupIndicatorValue(generatedAt:currentDate,name:entry.getKey(),value:entry.getValue(),indicatorValue:indicatorValue).save()
-                         
                         }
-                          
                     }
                 }
             } catch(Exception ex) {

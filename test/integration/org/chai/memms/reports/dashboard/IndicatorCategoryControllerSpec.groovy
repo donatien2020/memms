@@ -60,7 +60,7 @@ class IndicatorCategoryControllerSpec extends IntegrationTests{
     
     
     
-    def "can not create IndicatorCategory with valid fields"(){
+    def "can not create IndicatorCategory with invalid fields"(){
 		setup:
 		indicatorCategoryController = new IndicatorCategoryController()
 		when:

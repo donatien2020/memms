@@ -59,6 +59,7 @@ class IndicatorItem {
     Double value
     String unit
     String color
+    Double rankCounter=0
     List<HistoricalValueItem> historicalValueItems
     List<ComparisonValueItem> highestComparisonValueItems
     List<ComparisonValueItem> higherComparisonValueItems
@@ -110,8 +111,11 @@ class IndicatorItem {
         //####adding historical values
         //this.historicalValueItems.add(new HistoricalValueItem(iv))
         for(IndicatorValue indV :  getHistoricValueItems(iv)) {
+           
             this.historicalValueItems.add(new HistoricalValueItem(indV))
+             
         }
+        
         //#### adding geographical values
         //this.geographicalValueItems.add(new GeographicalValueItem(iv))
         for(IndicatorValue indV : getGeographicalValueItems(iv)) {
@@ -176,8 +180,8 @@ class IndicatorItem {
     public void getComparisonValueItems(IndicatorValue currentValue){
         List<IndicatorValue> invVs=new ArrayList<IndicatorValue>()
         if(currentValue!=null) {
-            def  simmilarFacilitiesOrLocations=getSimmilarFacilitiesOrlocations(currentValue)
-            def locationReports=LocationReport.findAllByMemmsReportAndLocationInList(currentValue.locationReport.memmsReport,simmilarFacilitiesOrLocations)
+            def  similarFacilitiesOrLocations=getSimilarFacilitiesOrlocations(currentValue)
+            def locationReports=LocationReport.findAllByMemmsReportAndLocationInList(currentValue.locationReport.memmsReport,similarFacilitiesOrLocations)
             invVs.addAll(IndicatorValue.findAllByLocationReportInListAndIndicator(locationReports,currentValue.indicator))
             sortComparisonValues(currentValue,invVs)
         }
@@ -188,8 +192,8 @@ class IndicatorItem {
         if(invVs.size() > 0) {
             List<IndicatorValue> listOfHighest=new ArrayList<IndicatorValue>()
             List<IndicatorValue> listOfLowestTmp=new ArrayList<IndicatorValue>()
-             List<IndicatorValue> listOfLowest=new ArrayList<IndicatorValue>()
-              List<IndicatorValue> higherTmp=new ArrayList<IndicatorValue>()
+            List<IndicatorValue> listOfLowest=new ArrayList<IndicatorValue>()
+            List<IndicatorValue> higherTmp=new ArrayList<IndicatorValue>()
             Double red = currentValue.indicator.redToYellowThreshold
             Double green =  currentValue.indicator.yellowToGreenThreshold
             if(red < green) {
@@ -234,7 +238,6 @@ class IndicatorItem {
             for(IndicatorValue iv: listOfLowest){
                 if(lowestCounter < 3)
                 listOfLowestTmp.add(iv)
-               
                 lowestCounter++
             }
             
@@ -244,7 +247,7 @@ class IndicatorItem {
             
            
             if(this.lowestComparisonValueItems!=null)
-            this.lowestComparisonValueItems.reverse()
+             this.lowestComparisonValueItems.reverse()
             
             for(IndicatorValue iv:listOfHighest.reverse()){
                 if(highestcounter < 3)
@@ -252,8 +255,8 @@ class IndicatorItem {
                 highestcounter++
             }
         }
-       // if(this.higherComparisonValueItems!=null)
-        this.higherComparisonValueItems.reverse()
+        if(this.higherComparisonValueItems!=null)
+         this.higherComparisonValueItems.reverse()
     }
     /**
      *
@@ -270,7 +273,7 @@ class IndicatorItem {
     /**
      *Gets  facilities or locations similar to the curent facility/location from this indicator value
      */
-    public def getSimmilarFacilitiesOrlocations(IndicatorValue indicatorValue){
+    public def getSimilarFacilitiesOrlocations(IndicatorValue indicatorValue){
         def  simmilarFacilitiesOrLocations=null
         def locationIds=getLocationsIdWithUsers()
         if(indicatorValue!=null){
@@ -340,7 +343,7 @@ class IndicatorItem {
     }
 
     public geoData() {
-        def ret = [["\'LATITUDE\'", "\'LONGITUDE\'", "\'LOCATION\'", "\'"+name+"\'"]]
+            def ret = [["\'LATITUDE\'", "\'LONGITUDE\'", "\'LOCATION\'", "\'Value\'"]]
         def i = 1
         for(GeographicalValueItem geo: geographicalValueItems) {
             if((geo.latitude != null) && (geo.longitude != null) &&(geo.latitude != 0.0) && (geo.longitude != 0.0)) {
@@ -349,6 +352,21 @@ class IndicatorItem {
             }
         }
         return ret
+    }
+    
+    public hasGeoData() {
+        if(geographicalValueItems == null) {
+            return false
+        }
+        if(geographicalValueItems.isEmpty()) {
+            return false
+        }
+        for(GeographicalValueItem geo: geographicalValueItems) {
+            if((geo.latitude != null) && (geo.longitude != null) &&(geo.latitude != 0.0) && (geo.longitude != 0.0)) {
+                return true
+            }
+        }
+        return false
     }
 
     public geoValues() {

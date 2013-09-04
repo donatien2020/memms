@@ -11,9 +11,9 @@
     </ul>
     <div class="v-tabs-content right">
       <ul class="v-tabs-filters">
-        <li><input type="checkbox" id="checkbox-green" name="green" checked="checked"/><label>Green</label></li>
-        <li><input type="checkbox" id="checkbox-yellow" name="yellow" checked="checked"/><label>Yellow</label></li>
-        <li><input type="checkbox" id="checkbox-red" name="red" checked="checked"/><label>Red</label></li>
+        <li><input type="checkbox" id="checkbox-green" name="green" checked="checked"/><label><g:message code="filliter.green" /></label></li>
+        <li><input type="checkbox" id="checkbox-yellow" name="yellow" checked="checked"/><label><g:message code="filliter.yellow" /></label></li>
+        <li><input type="checkbox" id="checkbox-red" name="red" checked="checked"/><label><g:message code="filliter.red" /></label></li>
       </ul>
       <g:each in="${categoryItems}" status="categoryCount" var="mapItem">
         <g:set var="categoryCode" value="${mapItem.key}" />
@@ -36,10 +36,10 @@
               </p>
               <div class="v-tabs-fold-container">
                 <ul class="v-tabs-nested-nav">
-                  <li><a id='historic_trend' class='active' href="#">Historic trend</a></li>
-                  <li><a id='comparison' href="#">Comparison to other facilities</a></li>
-                  <li><a id='geo_trend' href="#">Geographic trend</a></li>
-                  <li><a id='info_facility' href="#">Information by ${indicatorItem.groupName}</a></li>
+                  <li><a id='historic_trend' class='active' href="#"><g:message code="Historic.trend" /></a></li>
+                  <li><a id='comparison' href="#"><g:message code="comparison.to.other.facilities" /></a></li>
+                  <li><a id='geo_trend' href="#"><g:message code="geographic.trend" /></a></li>
+                  <li><a id='info_facility' href="#"><g:message code="information.by" /> ${indicatorItem.groupName}</a></li>
                 </ul>
                 <div id="historic_trend" class='toggled_tab'>
                   <g:if test="${indicatorItem.historicalTrendData()!=null}">
@@ -49,7 +49,7 @@
                         function drawVisualization() {
                             data = new google.visualization.DataTable();
                             data.addColumn('string', 'Date');
-                            data.addColumn('number', '${indicatorItem.name}');
+                            data.addColumn('number', 'Value');
                             data.addRows(${indicatorItem.historicalTrendData()});
                             formatter = new google.visualization.NumberFormat({pattern:'${indicatorItem.historicalTrendVAxisFormat()}'});
                             formatter.format(data,1);
@@ -59,7 +59,7 @@
                               legend: 'none',
                               pointSize: 12,
                               colors: [['${indicatorItem.color}']],
-                              vAxis: {format:'${indicatorItem.historicalTrendVAxisFormat()}', title: '${indicatorItem.name}', gridlines:{color: 'lightgray' ${indicatorItem.historicalTrendLineCount()}}, minValue: 0 ${indicatorItem.historicalTrendMaxValue()}},
+                              vAxis: {format:'${indicatorItem.historicalTrendVAxisFormat()}', title: 'Value[ ${indicatorItem.unit} ]', gridlines:{color: 'lightgray' ${indicatorItem.historicalTrendLineCount()}}, minValue: 0 ${indicatorItem.historicalTrendMaxValue()}},
                               hAxis: {gridlines:{color: 'lightgray', count: ${indicatorItem.totalHistoryItems + 1}}, minValue: 0, maxValue: ${indicatorItem.totalHistoryItems}},
                               fontSize: 12,
                               width: 900,
@@ -71,16 +71,21 @@
                 </div>
                 <div id="comparison">
                   <ul class="v-tabs-nested">
+                     <g:set var="lanking" value="${0}" />
                     <g:if test="${indicatorItem.highestComparisonValueItems != null && !indicatorItem.highestComparisonValueItems.isEmpty()}">
+                     
+                      
+                      
                       <g:each in="${indicatorItem.highestComparisonValueItems}" var="compItem">
+                         <g:set var="lanking" value="${lanking+1}" />
                         <li class="v-tabs-row">
-                          <span class="v-tabs-name">${compItem.facility}</span>
+                          <span class="v-tabs-name">${lanking}&nbsp;.&nbsp;${compItem.facility}</span>
                           <span class="v-tabs-formula" style="background: ${compItem.color}"  original-title="${compItem.color}">${compItem.color}</span>
                         <g:if test="${compItem.unit=='%'}">
                           <span class="v-tabs-value"><g:formatNumber number="${compItem.value}" format="0%"/></span>
                         </g:if>
                         <g:if test="${compItem.unit!='%'}">
-                          <span class="v-tabs-value"><g:formatNumber number="${compItem.value}" format="###,##0"/> ${compItem.unit}</span>
+                          <span class="v-tabs-value"><g:formatNumber number="${compItem.value}" format="###,##0"/> ${compItem.unit} </span>
                         </g:if>
                         </li>
                       </g:each>
@@ -90,8 +95,9 @@
                     </g:if>
                     <g:if test="${indicatorItem.higherComparisonValueItems != null && !indicatorItem.higherComparisonValueItems.isEmpty()}">
                       <g:each in="${indicatorItem.higherComparisonValueItems}" var="compItem">
+                         <g:set var="lanking" value="${lanking+1}" />
                         <li class="v-tabs-row">
-                          <span class="v-tabs-name">${compItem.facility}</span>
+                          <span class="v-tabs-name">${lanking}&nbsp;.&nbsp;${compItem.facility}</span>
                           <span class="v-tabs-formula" style="background: ${compItem.color}"  original-title="${compItem.color}">${compItem.color}</span>
                         <g:if test="${compItem.unit=='%'}">
                           <span class="v-tabs-value"><g:formatNumber number="${compItem.value}" format="0%"/></span>
@@ -114,8 +120,9 @@
                     </li>
                     <g:if test="${indicatorItem.lowerComparisonValueItems != null && !indicatorItem.lowerComparisonValueItems.isEmpty()}">
                       <g:each in="${indicatorItem.lowerComparisonValueItems}" var="compItem">
+                         <g:set var="lanking" value="${lanking+1}" />
                         <li class="v-tabs-row">
-                          <span class="v-tabs-name">${compItem.facility}</span>
+                          <span class="v-tabs-name">${lanking}&nbsp;.&nbsp;${compItem.facility}</span>
                           <span class="v-tabs-formula" style="background: ${compItem.color}"  original-title="${compItem.color}">${compItem.color}</span>
                         <g:if test="${compItem.unit=='%'}">
                           <span class="v-tabs-value"><g:formatNumber number="${compItem.value}" format="0%"/></span>
@@ -131,8 +138,9 @@
                         <span class="v-tabs-name"> ... </span>
                       </li>
                       <g:each in="${indicatorItem.lowestComparisonValueItems}" var="compItem">
+                         <g:set var="lanking" value="${lanking+1}" />
                         <li class="v-tabs-row">
-                          <span class="v-tabs-name">${compItem.facility}</span>
+                          <span class="v-tabs-name">${lanking}&nbsp;.&nbsp;${compItem.facility}</span>
                           <span class="v-tabs-formula" style="background: ${compItem.color}"  original-title="${compItem.color}">${compItem.color}</span>
                         <g:if test="${compItem.unit=='%'}">
                           <span class="v-tabs-value"><g:formatNumber number="${compItem.value}" format="0%"/></span>
@@ -146,7 +154,7 @@
                   </ul>
                 </div>
                 <div id="geo_trend">
-                  <g:if test="${(indicatorItem.geographicalValueItems != null) && !indicatorItem.geographicalValueItems.isEmpty()}">
+                  <g:if test="${indicatorItem.hasGeoData()}">
                     <script type='text/javascript'>
                         google.load('visualization', '1', {'packages': ['geochart']});
                         google.setOnLoadCallback(drawMarkersMap);

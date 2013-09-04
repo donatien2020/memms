@@ -46,7 +46,7 @@ class DashboardController extends AbstractController {
  
     def indicators = {
         LocationReport report = getUserReport()
-        
+
         List<IndicatorItem> indicatorItems = new ArrayList<IndicatorItem>()
         Map<String, CategoryItem> categoryItems = new LinkedHashMap<String, CategoryItem>()
         if(report != null) {

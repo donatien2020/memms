@@ -53,7 +53,7 @@ class GeographicalValueItem {
         this.value = iv.computedValue
         this.unit = iv.indicator.unit
         this.dataLocation = iv.locationReport.location.names
-        if(iv.locationReport.location.coordinates != null){
+        if(iv.locationReport.location.coordinates != null) {
             String raw = iv.locationReport.location.coordinates;
             int alpha = raw.indexOf("[");
             int omega = raw.lastIndexOf("]");
@@ -65,22 +65,27 @@ class GeographicalValueItem {
                     omega--;
                 }
                 String[] tokens = raw.substring(alpha,omega+1).split(splitter);
+                
                 double longs = 0.0;
                 double lats = 0.0;
                 long counter = 0;
                 for(String token: tokens) {
                     try {
                         String[] nums = token.substring(1,token.length()-1).split(",");
+                        
                         longs += Double.parseDouble(nums[0].trim());
                         lats += Double.parseDouble(nums[1].trim());
                         counter++;
                     } catch(Exception ex) {
                     }
                 }
+                
+                
                 this.longitude = longs/counter;
                 this.latitude = lats/counter;
             }
         }
+        
         Double red = iv.indicator.redToYellowThreshold
         Double green =  iv.indicator.yellowToGreenThreshold
         if(red < green) {

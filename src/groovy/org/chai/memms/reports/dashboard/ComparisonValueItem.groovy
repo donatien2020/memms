@@ -38,6 +38,7 @@ class ComparisonValueItem  implements Comparable<ComparisonValueItem> {
     Double value
     String unit
     String color
+    
 
     @Override
     public int compareTo(Object obj) {
