@@ -49,6 +49,7 @@ import org.joda.time.DateTime
 class IndicatorItem {
 
     IndicatorComputationService indicatorComputationService
+    Long id
     String facilityName
     String categoryCode
     Date dateTime
@@ -63,6 +64,7 @@ class IndicatorItem {
     List<HistoricalValueItem> historicalValueItems
     List<ComparisonValueItem> highestComparisonValueItems
     List<ComparisonValueItem> higherComparisonValueItems
+    Integer itemRank
     List<ComparisonValueItem> lowerComparisonValueItems
     List<ComparisonValueItem> lowestComparisonValueItems
     List<GeographicalValueItem> geographicalValueItems
@@ -72,6 +74,7 @@ class IndicatorItem {
     public IndicatorItem(){}
 
     public IndicatorItem(IndicatorValue iv) {
+        this.id = iv.id
         this.categoryCode = iv.indicator.category.code
         this.dateTime = iv.computedAt
         this.code = iv.indicator.code
@@ -103,26 +106,17 @@ class IndicatorItem {
         }
         this.historicalValueItems = new ArrayList<HistoricalValueItem>()
         this.geographicalValueItems = new ArrayList<GeographicalValueItem>()
-        this.highestComparisonValueItems= new ArrayList<ComparisonValueItem>()
-        this.higherComparisonValueItems= new ArrayList<ComparisonValueItem>()
-        this.lowerComparisonValueItems= new ArrayList<ComparisonValueItem>()
-        this.lowestComparisonValueItems= new ArrayList<ComparisonValueItem>()
         this.valuesPerGroup=new HashMap<String,Double>()
         //####adding historical values
-        //this.historicalValueItems.add(new HistoricalValueItem(iv))
         for(IndicatorValue indV :  getHistoricValueItems(iv)) {
-           
             this.historicalValueItems.add(new HistoricalValueItem(indV))
-             
         }
-        
         //#### adding geographical values
-        //this.geographicalValueItems.add(new GeographicalValueItem(iv))
         for(IndicatorValue indV : getGeographicalValueItems(iv)) {
             this.geographicalValueItems.add(new GeographicalValueItem(indV))
         }
         //###adding comparison value items
-        getComparisonValueItems(iv)
+        makeComparisonValueItems(iv)
         //## adding groupValues
         for(GroupIndicatorValue grV:iv.groupIndicatorValues){
             this.valuesPerGroup.put(grV.name,grV.value)
@@ -134,129 +128,87 @@ class IndicatorItem {
     public def getHistoricValueItems(IndicatorValue iv) {
         if(iv != null) {
             DateTime now = DateTime.now()
-             def monthCounter=now.getMonthOfYear()
-            def historicalPeriodsConditions=""+now.getMonthOfYear()
-             def historicalPeriods=0
-             if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.YEARLY)){
-                     
-                     historicalPeriods=12
-             } else if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.QUARTERLY)){
-                 
-                historicalPeriods=3
-                
-             }
-         
-            def periodCpounter=historicalPeriods
-            
-            for(int i=0  ;i<12; i++){
-               
+            def monthCounter = now.getMonthOfYear()
+            def historicalPeriodsConditions = "" + now.getMonthOfYear()
+            def historicalPeriods = 0
+            if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.YEARLY)) {
+                historicalPeriods = 12
+            } else if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.QUARTERLY)) {
+                historicalPeriods = 3
+            }
+            def periodCpounter=historicalPeriods            
+            for(int i = 0; i < 12; i++) {
                 periodCpounter--
                 monthCounter--
-                
-                if(periodCpounter==0){
-                historicalPeriodsConditions=historicalPeriodsConditions+","+monthCounter
-                 periodCpounter=historicalPeriods
-                 }
-            
-              if(monthCounter==1)
-                monthCounter=12
-          
+                if(periodCpounter == 0) {
+                    historicalPeriodsConditions = historicalPeriodsConditions + ", " + monthCounter
+                    periodCpounter = historicalPeriods
+                }
+                if(monthCounter == 1) {
+                    monthCounter=12
+                }
             }
-            
-           
-            
-            def locationReports=null
-            if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.MONTHLY)){
+            def locationReports = null
+            if(iv.indicator.historicalPeriod.equals(Indicator.HistoricalPeriod.MONTHLY)) {
                 locationReports = LocationReport.findAll("from LocationReport as locationReport  where locationReport.location.id='"+iv.locationReport.location.id+"' order by locationReport.generatedAt desc limit "+iv.indicator.historyItems+"")
-            } else{
-              
+            } else {
                 locationReports = LocationReport.findAll("from LocationReport as locationReport where month(locationReport.generatedAt) in ("+historicalPeriodsConditions+") and locationReport.location.id='"+iv.locationReport.location.id+"' order by locationReport.generatedAt desc limit "+iv.indicator.historyItems+"")
-            } 
+            }
             return IndicatorValue.findAllByLocationReportInListAndIndicator(locationReports,iv.indicator)
         }
         return null
     }
 
-    public void getComparisonValueItems(IndicatorValue currentValue){
-        List<IndicatorValue> invVs=new ArrayList<IndicatorValue>()
-        if(currentValue!=null) {
-            def  similarFacilitiesOrLocations=getSimilarFacilitiesOrlocations(currentValue)
-            def locationReports=LocationReport.findAllByMemmsReportAndLocationInList(currentValue.locationReport.memmsReport,similarFacilitiesOrLocations)
-            invVs.addAll(IndicatorValue.findAllByLocationReportInListAndIndicator(locationReports,currentValue.indicator))
-            sortComparisonValues(currentValue,invVs)
+    public void makeComparisonValueItems(IndicatorValue currentValue) {
+        this.highestComparisonValueItems = new ArrayList<ComparisonValueItem>()
+        this.higherComparisonValueItems = new ArrayList<ComparisonValueItem>()
+        this.itemRank = -1
+        this.lowerComparisonValueItems = new ArrayList<ComparisonValueItem>()
+        this.lowestComparisonValueItems = new ArrayList<ComparisonValueItem>()
+        List<IndicatorValue> result = getComparisonValues(currentValue)
+        if(!result.isEmpty()) {
+            int i = 0;
+            int n = result.size();
+            for(IndicatorValue v : result) {
+                if(v.id == currentValue.id) {
+                    this.itemRank = i
+                    break;
+                }
+                i++;
+            }
+            for(i = 0; (i < 3); i++) {
+                if (i < (this.itemRank - 3)) {
+                    this.highestComparisonValueItems.add(new ComparisonValueItem(result.get(i), i))
+                }
+            }
+            for(i = (this.itemRank - 3); (i < this.itemRank); i++) {
+                if (i >= 0) {
+                    this.higherComparisonValueItems.add(new ComparisonValueItem(result.get(i), i))
+                }
+            }
+            for(i = (this.itemRank + 1); (i < this.itemRank + 4); i++) {
+                if (i < n) {
+                    this.lowerComparisonValueItems.add(new ComparisonValueItem(result.get(i), i))
+                }
+            }
+            for(i = (n - 3); (i < n); i++) {
+                if (i > (this.itemRank + 3)) {
+                    this.lowestComparisonValueItems.add(new ComparisonValueItem(result.get(i), i))
+                }
+            }
         }
     }
-
-    public void sortComparisonValues(IndicatorValue currentValue,List<IndicatorValue> invVs){
-        Collections.sort(invVs);
-        if(invVs.size() > 0) {
-            List<IndicatorValue> listOfHighest=new ArrayList<IndicatorValue>()
-            List<IndicatorValue> listOfLowestTmp=new ArrayList<IndicatorValue>()
-            List<IndicatorValue> listOfLowest=new ArrayList<IndicatorValue>()
-            List<IndicatorValue> higherTmp=new ArrayList<IndicatorValue>()
-            Double red = currentValue.indicator.redToYellowThreshold
-            Double green =  currentValue.indicator.yellowToGreenThreshold
-            if(red < green) {
-                for(IndicatorValue iv:invVs){
-                    if(iv.computedValue <= currentValue.computedValue && iv.id!=currentValue.id){
-                        listOfLowest.add(iv)
-                    } else if(iv.computedValue >= currentValue.computedValue && iv.id!=currentValue.id){
-                        listOfHighest.add(iv)
-                    } else if(iv.id == currentValue.id) {
-                        for(def i = 1 ; i <= 2 ; i++) {
-                            if(invVs.indexOf(iv)+i<invVs.size())
-                              higherTmp.add(invVs.get(invVs.indexOf(iv)+i))
-                            if(invVs.indexOf(iv)-i>=0)
-                            this.lowerComparisonValueItems.add(new ComparisonValueItem(invVs.get(invVs.indexOf(iv)-i)))
-                        }
-                    }
-                }
-            } else {
-                for(IndicatorValue iv:invVs){
-                    if(iv.computedValue<=currentValue.computedValue  && iv.id!=currentValue.id){
-                        listOfHighest.add(iv)
-                    }else if(iv.computedValue >= currentValue.computedValue  && iv.id!=currentValue.id){
-                        listOfLowest.add(iv)
-                    }else if(iv.id == currentValue.id){
-                        for(def i=1 ; i<=2 ; i++){
-                            if(invVs.indexOf(iv)+i<invVs.size())
-                            this.lowerComparisonValueItems.add(new ComparisonValueItem(invVs.get(invVs.indexOf(iv)+i)))
-                            if(invVs.indexOf(iv)-i>=0)
-                            this.higherComparisonValueItems.add(new ComparisonValueItem(invVs.get(invVs.indexOf(iv)-i)))
-                        }
-                    }
-                }
-            }
-            
-              for(IndicatorValue iv: higherTmp.reverse()){
-                 this.higherComparisonValueItems.add(new ComparisonValueItem(iv))
-            }
-            
-            
-            def lowestCounter=0
-            def highestcounter=0
-            for(IndicatorValue iv: listOfLowest){
-                if(lowestCounter < 3)
-                listOfLowestTmp.add(iv)
-                lowestCounter++
-            }
-            
-            for(IndicatorValue iv: listOfLowestTmp.reverse()){
-                 this.lowestComparisonValueItems.add(new ComparisonValueItem(iv))
-            }
-            
-           
-            if(this.lowestComparisonValueItems!=null)
-             this.lowestComparisonValueItems.reverse()
-            
-            for(IndicatorValue iv:listOfHighest.reverse()){
-                if(highestcounter < 3)
-                this.highestComparisonValueItems.add(new ComparisonValueItem(iv))
-                highestcounter++
-            }
+ 
+    public def getComparisonValues(IndicatorValue indicatorValue){
+        def locations = null
+        if(indicatorValue.locationReport.location instanceof DataLocation){
+            locations = DataLocation.findAllByType(indicatorValue.locationReport.location.type)
+        } else if(indicatorValue.locationReport.location instanceof Location){
+            locations = Location.findAllByLevel(indicatorValue.locationReport.location.level)
         }
-        if(this.higherComparisonValueItems!=null)
-         this.higherComparisonValueItems.reverse()
+        def locationReports = LocationReport.findAllByMemmsReportAndLocationInList(indicatorValue.locationReport.memmsReport,locations)
+        def sortOrder = (indicatorValue.indicator.redToYellowThreshold < indicatorValue.indicator.yellowToGreenThreshold)?"desc":"asc"
+        return IndicatorValue.findAllByLocationReportInListAndIndicator(locationReports,indicatorValue.indicator,[sort: 'computedValue', order:sortOrder])
     }
     /**
      *
@@ -343,7 +295,7 @@ class IndicatorItem {
     }
 
     public geoData() {
-            def ret = [["\'LATITUDE\'", "\'LONGITUDE\'", "\'LOCATION\'", "\'Value\'"]]
+        def ret = [["\'LATITUDE\'", "\'LONGITUDE\'", "\'LOCATION\'", "\'Value\'"]]
         def i = 1
         for(GeographicalValueItem geo: geographicalValueItems) {
             if((geo.latitude != null) && (geo.longitude != null) &&(geo.latitude != 0.0) && (geo.longitude != 0.0)) {

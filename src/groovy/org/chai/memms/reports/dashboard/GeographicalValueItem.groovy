@@ -65,7 +65,6 @@ class GeographicalValueItem {
                     omega--;
                 }
                 String[] tokens = raw.substring(alpha,omega+1).split(splitter);
-                
                 double longs = 0.0;
                 double lats = 0.0;
                 long counter = 0;

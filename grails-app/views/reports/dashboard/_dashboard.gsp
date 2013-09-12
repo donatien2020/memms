@@ -28,7 +28,7 @@
                   </a>
                   <span class="tooltip v-tabs-formula" style="background: ${indicatorItem.color}" original-title="${indicatorItem.formula}">${indicatorItem.formula}</span>
               <g:if test="${indicatorItem.unit=='%'}">
-                <span class="v-tabs-value"><g:formatNumber number="${indicatorItem.value}" format="0.00%"/></span>
+                <span class="v-tabs-value"><g:formatNumber number="${indicatorItem.value}" format="0%"/></span>
               </g:if>
               <g:if test="${indicatorItem.unit!='%'}">
                 <span class="v-tabs-value"><g:formatNumber number="${indicatorItem.value}" format="###,##0"/> ${indicatorItem.unit}</span>
@@ -36,7 +36,7 @@
               </p>
               <div class="v-tabs-fold-container">
                 <ul class="v-tabs-nested-nav">
-                  <li><a id='historic_trend' class='active' href="#"><g:message code="Historic.trend" /></a></li>
+                  <li><a id='historic_trend' class='active' href="#"><g:message code="historic.trend" /></a></li>
                   <li><a id='comparison' href="#"><g:message code="comparison.to.other.facilities" /></a></li>
                   <li><a id='geo_trend' href="#"><g:message code="geographic.trend" /></a></li>
                   <li><a id='info_facility' href="#"><g:message code="information.by" /> ${indicatorItem.groupName}</a></li>
@@ -66,20 +66,18 @@
                               height: 300});
                         }
                     </script>
-                    <div id="historic_trend_chart_timeline_${indicatorItem.code}" style="width:800px; height:400px; overflow: auto;" ></div>
+                    <div id="historic_trend_chart_timeline_${indicatorItem.code}" style="width:800px; height:400px;" ></div>
                   </g:if>
                 </div>
                 <div id="comparison">
                   <ul class="v-tabs-nested">
-                     <g:set var="lanking" value="${0}" />
+
                     <g:if test="${indicatorItem.highestComparisonValueItems != null && !indicatorItem.highestComparisonValueItems.isEmpty()}">
-                     
-                      
-                      
+
                       <g:each in="${indicatorItem.highestComparisonValueItems}" var="compItem">
-                         <g:set var="lanking" value="${lanking+1}" />
+
                         <li class="v-tabs-row">
-                          <span class="v-tabs-name">${lanking}&nbsp;.&nbsp;${compItem.facility}</span>
+                          <span class="v-tabs-name">${compItem.rank+1}.&nbsp;${compItem.facility}</span>
                           <span class="v-tabs-formula" style="background: ${compItem.color}"  original-title="${compItem.color}">${compItem.color}</span>
                         <g:if test="${compItem.unit=='%'}">
                           <span class="v-tabs-value"><g:formatNumber number="${compItem.value}" format="0%"/></span>
@@ -95,9 +93,8 @@
                     </g:if>
                     <g:if test="${indicatorItem.higherComparisonValueItems != null && !indicatorItem.higherComparisonValueItems.isEmpty()}">
                       <g:each in="${indicatorItem.higherComparisonValueItems}" var="compItem">
-                         <g:set var="lanking" value="${lanking+1}" />
                         <li class="v-tabs-row">
-                          <span class="v-tabs-name">${lanking}&nbsp;.&nbsp;${compItem.facility}</span>
+                          <span class="v-tabs-name">${compItem.rank+1}.&nbsp;${compItem.facility}</span>
                           <span class="v-tabs-formula" style="background: ${compItem.color}"  original-title="${compItem.color}">${compItem.color}</span>
                         <g:if test="${compItem.unit=='%'}">
                           <span class="v-tabs-value"><g:formatNumber number="${compItem.value}" format="0%"/></span>
@@ -108,21 +105,22 @@
                         </li>
                       </g:each>
                     </g:if>
-                    <li class="v-tabs-row" style="font-size:15px;font-weight:bold;color:#258CD5">
-                      <span class="v-tabs-name">${indicatorItem.facilityName}</span>
-                      <span class="v-tabs-formula" style="background: ${indicatorItem.color}"  original-title="${indicatorItem.color}">${indicatorItem.color}</span>
-                    <g:if test="${indicatorItem.unit=='%'}">
-                      <span class="v-tabs-value"><g:formatNumber number="${indicatorItem.value}" format="0%"/></span>
+                    <g:if test="${(indicatorItem.itemRank != null) && (indicatorItem.itemRank >= 0)}">
+                      <li class="v-tabs-row" style="font-size:15px;font-weight:bold;color:#258CD5">
+                        <span class="v-tabs-name">${indicatorItem.itemRank+1}.&nbsp;${indicatorItem.facilityName}</span>
+                        <span class="v-tabs-formula" style="background: ${indicatorItem.color}"  original-title="${indicatorItem.color}">${indicatorItem.color}</span>
+                      <g:if test="${indicatorItem.unit=='%'}">
+                        <span class="v-tabs-value"><g:formatNumber number="${indicatorItem.value}" format="0%"/></span>
+                      </g:if>
+                      <g:if test="${indicatorItem.unit!='%'}">
+                        <span class="v-tabs-value"><g:formatNumber number="${indicatorItem.value}" format="###,##0"/> ${indicatorItem.unit}</span>
+                      </g:if>
+                      </li>
                     </g:if>
-                    <g:if test="${indicatorItem.unit!='%'}">
-                      <span class="v-tabs-value"><g:formatNumber number="${indicatorItem.value}" format="###,##0"/> ${indicatorItem.unit}</span>
-                    </g:if>
-                    </li>
                     <g:if test="${indicatorItem.lowerComparisonValueItems != null && !indicatorItem.lowerComparisonValueItems.isEmpty()}">
                       <g:each in="${indicatorItem.lowerComparisonValueItems}" var="compItem">
-                         <g:set var="lanking" value="${lanking+1}" />
                         <li class="v-tabs-row">
-                          <span class="v-tabs-name">${lanking}&nbsp;.&nbsp;${compItem.facility}</span>
+                          <span class="v-tabs-name">${compItem.rank+1}.&nbsp;${compItem.facility}</span>
                           <span class="v-tabs-formula" style="background: ${compItem.color}"  original-title="${compItem.color}">${compItem.color}</span>
                         <g:if test="${compItem.unit=='%'}">
                           <span class="v-tabs-value"><g:formatNumber number="${compItem.value}" format="0%"/></span>
@@ -138,9 +136,8 @@
                         <span class="v-tabs-name"> ... </span>
                       </li>
                       <g:each in="${indicatorItem.lowestComparisonValueItems}" var="compItem">
-                         <g:set var="lanking" value="${lanking+1}" />
                         <li class="v-tabs-row">
-                          <span class="v-tabs-name">${lanking}&nbsp;.&nbsp;${compItem.facility}</span>
+                          <span class="v-tabs-name">${compItem.rank+1}.&nbsp;${compItem.facility}</span>
                           <span class="v-tabs-formula" style="background: ${compItem.color}"  original-title="${compItem.color}">${compItem.color}</span>
                         <g:if test="${compItem.unit=='%'}">
                           <span class="v-tabs-value"><g:formatNumber number="${compItem.value}" format="0%"/></span>

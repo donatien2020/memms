@@ -34,22 +34,25 @@ import org.chai.memms.reports.dashboard.IndicatorValue;
  */
 class ComparisonValueItem  implements Comparable<ComparisonValueItem> {
 
+    Long id
     String facility
     Double value
     String unit
     String color
+    Integer rank
     
-
     @Override
     public int compareTo(Object obj) {
         ComparisonValueItem comp = (ComparisonValueItem)obj;
         return this.value.compareTo(comp.value);
     }
 
-    public ComparisonValueItem(IndicatorValue iv) {
+    public ComparisonValueItem(IndicatorValue iv, Integer rank) {
+        this.id = iv.id
         this.value = iv.computedValue
         this.unit = iv.indicator.unit
         this.facility = iv.locationReport.location.names
+        this.rank = rank
         Double red = iv.indicator.redToYellowThreshold
         Double green =  iv.indicator.yellowToGreenThreshold
         if(red < green) {
